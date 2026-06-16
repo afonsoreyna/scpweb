@@ -42,6 +42,9 @@ img{display:block;max-width:100%}
 section{position:relative}
 .sec-pad{padding:clamp(64px,9vw,120px) 0}
 
+html[lang="pt"] .lang-en { display: none; }
+html[lang="en"] .lang-pt { display: none; }
+
 /* ---------- wave divider signature ---------- */
 .wave-rule{display:block;width:118px;height:14px;margin:18px 0 0}
 .wave-rule path{fill:none;stroke-width:5;stroke-linecap:round}
@@ -136,7 +139,7 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 /* ---------- aulas ---------- */
 .classes{background:var(--foam)}
 .classes h2{font-size:clamp(2rem,3.6vw,3.1rem);margin-top:14px}
-.classes .sub{color:var(--slate);max-width:54ch;margin-top:12px}
+.classes .sub{color:var(--slate);max-width:54ch;margin-top:12px; margin-left: auto; margin-right: auto}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:42px}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px 24px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s,border-color .25s}
 .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
@@ -224,6 +227,62 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 .wa span{white-space:nowrap;font-family:"Archivo";font-weight:700;font-size:.9rem;margin-left:12px;opacity:0;transition:.2s}
 .wa:hover span{opacity:1}
 
+/* floating social buttons */
+.floaters{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:90;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:flex-end;
+}
+
+.floater{
+  display:flex;
+  align-items:center;
+  gap:0;
+  color:#fff;
+  border-radius:999px;
+  padding:14px;
+  overflow:hidden;
+  transition:.3s;
+  max-width:54px;
+  box-shadow:0 14px 34px -10px rgba(10,36,51,.45);
+}
+
+.floater:hover{
+  max-width:240px;
+  padding-right:22px;
+}
+
+.floater svg{
+  flex:0 0 26px;
+}
+
+.floater span{
+  white-space:nowrap;
+  font-family:"Archivo";
+  font-weight:700;
+  font-size:.9rem;
+  margin-left:12px;
+  opacity:0;
+  transition:.2s;
+}
+
+.floater:hover span{
+  opacity:1;
+}
+
+/* individual brand colors */
+.floater.whatsapp{background:#25D366}
+.floater.instagram{
+  background:linear-gradient(135deg,#833AB4,#FD1D1D,#FCAF45);
+}
+.floater.facebook{background:#1877F2}
+.floater.email{background:var(--ink)}
+
 /* cookie banner */
 .cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:120;max-width:560px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px -18px rgba(10,36,51,.5);padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;transform:translateY(140%);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .cookie.show{transform:none}
@@ -273,7 +332,10 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top" aria-label="Surfing Clube de Portugal">
-    <img src="resources/logowide.png" alt="Surfing Clube de Portugal">
+      <!-- Added inline style to override global CSS, increase height, and bring it closer to the 74px container limits -->
+      <img src="resources/logowide.png" alt="Surfing Clube de Portugal" style="height: 60px; width: auto; object-fit: contain;">
+    </a> <!-- Note: Fixed missing closing anchor tag here -->
+    
     <div class="nav-links">
       <nav aria-label="principal">
         <a class="navlink" href="#historia" data-pt="História" data-en="Story">História</a>
@@ -312,8 +374,8 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
   <img class="photo ph-img" alt="" src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1600&q=70">
   <div class="wrap">
     <span class="eyebrow hero-eyebrow">São Pedro do Estoril · Cascais</span>
-    <h1 data-pt="O mar é a nossa casa desde 1978." data-en="The ocean has been home since 1978.">O mar é a nossa casa desde 1978.</h1>
-    <p class="lead" data-pt="Somos o primeiro e mais antigo clube de surf de Portugal. Formamos surfistas, longboarders e skimboarders na praia onde o surf português começou." data-en="We are Portugal's first and oldest surf club — shaping surfers, longboarders and skimboarders on the beach where Portuguese surf began.">Somos o primeiro e mais antigo clube de surf de Portugal. Formamos surfistas, longboarders e skimboarders na praia onde o surf português começou.</p>
+    <h1 data-pt="O mar é a nossa casa desde 1978" data-en="The ocean has been home since 1978">O mar é a nossa casa desde 1978</h1>
+    <p class="lead" data-pt="Somos o primeiro e mais antigo clube de surf de Portugal. Formamos gerações de atletas e amantes do mar na praia onde o surf português começou." data-en="We are Portugal’s first and oldest surf club. We’ve shaped generations of athletes and ocean lovers on the beach where Portuguese surfing began.">Somos o primeiro e mais antigo clube de surf de Portugal. Formamos gerações de atletas e amantes do mar na praia onde o surf português começou.</p>
     <div class="hero-cta">
       <a class="btn btn-sun" href="#aulas" data-pt="Ver as aulas" data-en="See our classes">Ver as aulas</a>
       <a class="btn btn-white" href="#contacto" data-pt="Fala connosco" data-en="Get in touch">Fala connosco</a>
@@ -326,9 +388,15 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 <section class="stats">
   <div class="wrap"><div class="row">
     <div class="stat"><div class="n">47</div><div class="l" data-pt="anos a formar atletas" data-en="years shaping athletes">anos a formar atletas</div></div>
-    <div class="stat"><div class="n">1<span class="u">.º</span></div><div class="l" data-pt="clube de surf de Portugal" data-en="surf club in Portugal">clube de surf de Portugal</div></div>
+    <div class="stat">
+      <div class="n">
+        <span class="lang-pt">1<span class="u">.º</span></span>
+        <span class="lang-en">1<span class="u">st</span></span>
+      </div>
+      <div class="l" data-pt="clube de surf de Portugal" data-en="surf club in Portugal">clube de surf de Portugal</div>
+      </div>
     <div class="stat"><div class="n">20<span class="u">+</span></div><div class="l" data-pt="edições do Estoril Surf Festival" data-en="Estoril Surf Festival editions">edições do Estoril Surf Festival</div></div>
-    <div class="stat"><div class="n">3</div><div class="l" data-pt="modalidades: surf · longboard · skimboard" data-en="disciplines: surf · longboard · skimboard">modalidades: surf · longboard · skimboard</div></div>
+    <div class="stat"><div class="n">7</div><div class="l" data-pt="modalidades: surf · longboard · skimboard · bodyboard · stand-up paddle · bodysurf · águas livres" data-en="disciplines: surf · longboard · skimboard · bodyboard · stand-up paddle · bodysurf · open water">modalidades: surf · longboard · skimboard · bodyboard · stand-up paddle · bodysurf · águas livres</div></div>
   </div></div>
 </section>
 
@@ -338,10 +406,10 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
     <div class="reveal">
       <span class="eyebrow" data-pt="A nossa história" data-en="Our story">A nossa história</span>
       <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-      <h2 data-pt="Onde o surf português começou." data-en="Where Portuguese surf began.">Onde o surf português começou.</h2>
+      <h2 data-pt="Onde o surf português começou" data-en="Where Portuguese surf began">Onde o surf português começou</h2>
       <p data-pt="Em 1978, na praia de São Pedro do Estoril, um grupo de amigos apaixonados pelo mar fundou aquele que se tornaria o primeiro e mais antigo clube de surf do país. Desde então, o clube nunca saiu da água." data-en="In 1978, on the beach of São Pedro do Estoril, a group of friends in love with the sea founded what would become the country's first and oldest surf club. It has never left the water since.">Em 1978, na praia de São Pedro do Estoril, um grupo de amigos apaixonados pelo mar fundou aquele que se tornaria o primeiro e mais antigo clube de surf do país. Desde então, o clube nunca saiu da água.</p>
       <p data-pt="Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf." data-en="Generations grew up here — from their first boards to championship heats. More than a school, we're a community bound to the Estoril coast, to togetherness, and to the genuine spirit of surf.">Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf.</p>
-      <p class="pullquote" data-pt="No surf, há sempre lugar para mais um." data-en="In surf, there's always room for one more.">No surf, há sempre lugar para mais um.</p>
+      <p class="pullquote" data-pt="Aqui, o surf passa de geração em geração." data-en="Here, surfing is passed from generation to generation.">Aqui, o surf passa de geração em geração.</p>
     </div>
     <div class="story-media reveal">
       <div class="ph a"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?auto=format&fit=crop&w=900&q=70"><span class="tag" data-pt="Foto do clube" data-en="Club photo">Foto do clube</span></div>
@@ -356,8 +424,8 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
     <div class="reveal">
       <span class="eyebrow" data-pt="Conquistas & competição" data-en="Achievements & competition">Conquistas & competição</span>
       <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-      <h2 data-pt="Uma linha do tempo feita de ondas." data-en="A timeline made of waves.">Uma linha do tempo feita de ondas.</h2>
-      <p class="sub" data-pt="Quase meio século a organizar provas e a levar atletas de São Pedro às competições regionais e nacionais." data-en="Almost half a century organising events and taking athletes from São Pedro to regional and national competition.">Quase meio século a organizar provas e a levar atletas de São Pedro às competições regionais e nacionais.</p>
+      <h2 data-pt="Uma linha do tempo feita de ondas" data-en="A timeline made of waves">Uma linha do tempo feita de ondas</h2>
+      <p class="sub" data-pt="Quase meio século a organizar provas e a levar atletas de São Pedro às competições regionais, nacionais e internacionais." data-en="Almost half a century organising events and taking athletes from São Pedro to regional, national and international competition.">Quase meio século a organizar provas e a levar atletas de São Pedro às competições regionais, nacionais e internacionais.</p>
     </div>
     <div class="timeline reveal">
       <div class="tl"><div class="yr">1978</div><h3 data-pt="A fundação" data-en="The founding">A fundação</h3><p data-pt="Nasce em São Pedro do Estoril o primeiro clube de surf de Portugal." data-en="Portugal's first surf club is born in São Pedro do Estoril.">Nasce em São Pedro do Estoril o primeiro clube de surf de Portugal.</p></div>
@@ -376,7 +444,7 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
     <div class="reveal" style="text-align:center;max-width:720px;margin:0 auto">
       <span class="eyebrow" data-pt="Escola & aulas" data-en="School & classes">Escola & aulas</span>
       <svg class="wave-rule" style="margin:18px auto 0" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-      <h2 data-pt="Encontra a tua onda." data-en="Find your wave.">Encontra a tua onda.</h2>
+      <h2 data-pt="Encontra a tua onda" data-en="Find your wave">Encontra a tua onda</h2>
       <p class="sub" data-pt="Do primeiro contacto com a espuma à equipa de competição. Aulas para todas as idades, com material incluído e treinadores credenciados." data-en="From your first taste of whitewater to the competition team. Classes for all ages, gear included, with certified coaches.">Do primeiro contacto com a espuma à equipa de competição. Aulas para todas as idades, com material incluído e treinadores credenciados.</p>
     </div>
     <div class="cards reveal">
@@ -393,7 +461,7 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
       <div class="card">
         <div class="lvl"><span class="num">2</span><span>Intermédio</span></div>
         <h3 data-pt="A evoluir" data-en="Levelling up">A evoluir</h3>
-        <p class="who" data-pt="Já apanha ondas e quer remar para o green e ganhar consistência." data-en="Already catching waves and ready to paddle to the green and build consistency.">Já apanha ondas e quer remar para o green e ganhar consistência.</p>
+        <p class="who" data-pt="Já apanha ondas e quer remar para o outside e ganhar consistência." data-en="Already catching waves and ready to paddle to the outside and build consistency.">Já apanha ondas e quer remar para o outside e ganhar consistência.</p>
         <ul>
           <li><span data-pt="Idades" data-en="Ages">Idades</span><span>10+</span></li>
           <li><span data-pt="Foco" data-en="Focus">Foco</span><span data-pt="Take-off & leitura" data-en="Take-off & reading">Take-off & leitura</span></li>
@@ -403,7 +471,7 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
       <div class="card">
         <div class="lvl"><span class="num">3</span><span>Avançado</span></div>
         <h3 data-pt="Manobras" data-en="Manoeuvres">Manobras</h3>
-        <p class="who" data-pt="Domina o green e quer trabalhar manobras e estilo próprio." data-en="Comfortable on the green and working on manoeuvres and personal style.">Domina o green e quer trabalhar manobras e estilo próprio.</p>
+        <p class="who" data-pt="Domina o outside e quer trabalhar manobras e estilo próprio." data-en="Comfortable on the outside and wants to work on manoeuvres and personal style.">Domina o outside e quer trabalhar manobras e estilo próprio.</p>
         <ul>
           <li><span data-pt="Idades" data-en="Ages">Idades</span><span>12+</span></li>
           <li><span data-pt="Foco" data-en="Focus">Foco</span><span data-pt="Manobras & vídeo" data-en="Manoeuvres & video">Manobras & vídeo</span></li>
@@ -434,7 +502,7 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
     <div class="reveal">
       <span class="eyebrow" data-pt="Galeria" data-en="Gallery">Galeria</span>
       <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-      <h2 data-pt="A vida no Centro de Surf." data-en="Life at the Surf Centre.">A vida no Centro de Surf.</h2>
+      <h2 data-pt="A vida no Centro de Surf" data-en="Life at the Surf Centre">A vida no Centro de Surf</h2>
     </div>
     <div class="grid-g reveal" id="gallery-grid">
       <div class="gitem tall"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1502933691298-84fc14542831?auto=format&fit=crop&w=800&q=70"><div class="ov"><span data-pt="São Pedro do Estoril" data-en="São Pedro do Estoril">São Pedro do Estoril</span></div></div>
@@ -456,7 +524,7 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
       <div>
         <span class="eyebrow" data-pt="Últimas notícias" data-en="Latest news">Últimas notícias</span>
         <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-        <h2 data-pt="Segue o dia-a-dia no Instagram." data-en="Follow the day-to-day on Instagram.">Segue o dia-a-dia no Instagram.</h2>
+        <h2 data-pt="Segue o dia-a-dia no Instagram" data-en="Follow the day-to-day on Instagram">Segue o dia-a-dia no Instagram</h2>
         <p class="sub" data-pt="Provas, aulas e as melhores ondas — a atualidade do clube vive no nosso Instagram." data-en="Heats, classes and the best waves — the club's latest lives on our Instagram.">Provas, aulas e as melhores ondas — a atualidade do clube vive no nosso Instagram.</p>
       </div>
       <a class="btn btn-surf" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener">@surfingclubeportugal</a>
@@ -490,7 +558,7 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
     <div class="reveal">
       <span class="eyebrow" data-pt="Contacto" data-en="Contact">Contacto</span>
       <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-      <h2 data-pt="Vem ter connosco à praia." data-en="Come find us at the beach.">Vem ter connosco à praia.</h2>
+      <h2 data-pt="Vem ter connosco à praia" data-en="Come find us at the beach">Vem ter connosco à praia</h2>
       <div class="cinfo">
         <div class="cline"><span class="ic">⌖</span><div><div class="k" data-pt="Morada" data-en="Address">Morada</div><div class="v">Centro de Surf · Avenida Marginal<br>Praia de São Pedro do Estoril<br>2765-603 Estoril, Cascais</div></div></div>
         <div class="cline"><span class="ic">✆</span><div><div class="k" data-pt="Telefone" data-en="Phone">Telefone</div><a class="v" href="tel:+351214678002">+351 214 678 002</a></div></div>
@@ -504,8 +572,21 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
       </div>
     </div>
     <div class="map-wrap reveal">
-      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa - Praia de São Pedro do Estoril" src="https://www.google.com/maps?q=Praia+de+S%C3%A3o+Pedro+do+Estoril,+Cascais&z=15&output=embed"></iframe>
-      <a class="btn btn-white map-open" href="https://www.google.com/maps?q=Praia+de+S%C3%A3o+Pedro+do+Estoril,+Cascais" target="_blank" rel="noopener" data-pt="Abrir no Maps" data-en="Open in Maps">Abrir no Maps</a>
+      <iframe
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Mapa - Surfing Clube de Portugal"
+        src="https://www.google.com/maps?q=Surfing+Clube+de+Portugal&z=15&output=embed">
+      </iframe>
+
+      <a class="btn btn-white map-open"
+        href="https://www.google.com/maps?q=Surfing+Clube+de+Portugal"
+        target="_blank"
+        rel="noopener"
+        data-pt="Abrir no Maps"
+        data-en="Open in Maps">
+        Abrir no Maps
+      </a>
     </div>
   </div>
 </section>
@@ -543,10 +624,67 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 </footer>
 
 <!-- WHATSAPP FLOAT — substituir o número pelo telemóvel/WhatsApp do clube -->
-<a class="wa" href="https://wa.me/351000000000?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20aulas." target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.5.5 0 0 0 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2 4.7 4.7 0 0 0 1 2.5 10.7 10.7 0 0 0 4.1 3.6c2 .8 2 .5 2.4.5a2.4 2.4 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.5-.3z"/></svg>
-  <span data-pt="Fala connosco" data-en="Chat with us">Fala connosco</span>
-</a>
+<!-- FLOATING SOCIALS -->
+<div class="floaters">
+
+  <!-- WhatsApp -->
+  <a class="floater whatsapp"
+     href="https://wa.me/351000000000?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20aulas."
+     target="_blank"
+     rel="noopener"
+     aria-label="WhatsApp">
+
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
+      <path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.5.5 0 0 0 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2 4.7 4.7 0 0 0 1 2.5 10.7 10.7 0 0 0 4.1 3.6c2 .8 2 .5 2.4.5a2.4 2.4 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.5-.3z"/>
+    </svg>
+
+    <span data-pt="WhatsApp" data-en="WhatsApp">WhatsApp</span>
+  </a>
+
+  <!-- Instagram -->
+  <a class="floater instagram"
+     href="https://www.instagram.com/surfingclubeportugal/"
+     target="_blank"
+     rel="noopener"
+     aria-label="Instagram">
+
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+      <rect x="2" y="2" width="20" height="20" rx="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/>
+    </svg>
+
+    <span>Instagram</span>
+  </a>
+
+  <!-- Facebook -->
+  <a class="floater facebook"
+     href="https://www.facebook.com/surfingclubeportugal/"
+     target="_blank"
+     rel="noopener"
+     aria-label="Facebook">
+
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
+      <path d="M14 9h3l.5-3H14V4.5c0-.9.3-1.5 1.6-1.5H17V.2C16.7.1 15.6 0 14.4 0 11.9 0 10 1.5 10 4.3V6H7v3h3v9h4V9z"/>
+    </svg>
+
+    <span>Facebook</span>
+  </a>
+
+  <!-- Email -->
+  <a class="floater email"
+     href="mailto:info@surfingclubeportugal.com"
+     aria-label="Email">
+
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+      <path d="M4 4h16v16H4z"/>
+      <path d="M4 7l8 6 8-6"/>
+    </svg>
+
+    <span>Email</span>
+  </a>
+
+</div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLb()"><span class="x">×</span><img id="lb-img" alt=""></div>
