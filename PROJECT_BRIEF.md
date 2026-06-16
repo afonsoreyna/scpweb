@@ -21,35 +21,56 @@ A simple, compelling one-page site for **Surfing Clube de Portugal**, a non-prof
 Each section has a comment banner like `<!-- =================== HERO =================== -->` — reference these when asking for edits.
 1. Sticky nav — logo, links, PT/EN toggle, "Inscreve-te" CTA  → `#top`
 2. Hero — full-bleed photo, headline, "EST. 1978", CTAs
-3. Stats strip (47 anos / 1.º clube / 20+ ESF / 3 modalidades)
+3. Stats strip (47 anos / 1.º clube / 20+ ESF / 7 modalidades)
 4. História → `#historia`
 5. Conquistas (horizontal timeline) → `#conquistas`
 6. Aulas (4 class cards) → `#aulas`
 7. Galeria (lightbox grid) → `#galeria`
-8. Instagram (placeholder grid + live-feed slot) → `#instagram`
+8. Instagram (live feed from Behold.so JSON) → `#instagram` ✅ **COMPLETE**
 9. Contacto (info + Google Maps embed) → `#contacto`
 10. Footer
 - Floating: WhatsApp button · Cookie banner · PT/EN toggle (works via `data-pt`/`data-en` attributes)
 
 ## Verified real facts (already used — no need to re-research)
 - Founded **1978**; first & oldest surf club in Portugal; Praia de São Pedro do Estoril
-- Modalities: **Surf, Longboard, Skimboard, Skate**
+- Modalities: **Surf, Longboard, Skimboard, Bodyboard, Stand-up Paddle, Bodysurf, Águas Livres** (7 total)
 - **Estoril Surf Festival** — 20th edition in 2024, runs through November
 - Phone **+351 214 678 002** · Email **info@surfingclubeportugal.com**
-- Instagram **@surfingclubeportugal** · Facebook **/surfingclubeportugal**
+- Instagram **@surfingclubeportugal** (Business account, connected to Behold.so)
+- Facebook **/surfingclubeportugal**
 - Address: Centro de Surf, Avenida Marginal, Praia de São Pedro do Estoril, 2765-603 Estoril, Cascais
 
 ## TODO / placeholders to replace
-- [ ] **Photos** — all images are placeholder Unsplash shots over branded gradients; swap for client photos (`img.ph-img` slots)
-- [ ] **WhatsApp number** — float currently points to `wa.me/351000000000`
-- [ ] **Class schedules / prices / ages** — currently sensible placeholders
-- [ ] **Real championship results** — fill the timeline ("O teu título aqui" card)
-- [ ] **Live Instagram feed** — paste a widget iframe into the `<!-- LIVE INSTAGRAM FEED GOES HERE -->` slot
-- [ ] **Privacy/RGPD page** — cookie banner links to it
-- [ ] Optional: donation/"Apoia o clube" link, inscrições-abertas banner, Google Business Profile
 
-## Instagram feed approach (decided)
-Do **not** use Instagram's official oEmbed/Graph API (token expires ~60 days = manual upkeep). Use an auto-refreshing third-party widget: **Behold.so / EmbedSocial / SnapWidget / LightWidget / Tagembed**. Paste its iframe once into the slot; no ongoing maintenance.
+### ✅ Completed
+- [x] **Live Instagram feed** — Behold.so JSON integration complete. Renders 6 most recent posts with captions, timestamps, and media badges. Auto-updates whenever new posts are added to Instagram.
+
+### Still needed
+- [ ] **Photos** — all remaining Unsplash placeholders (hero, história, galeria sections) to be swapped for real club photos (`img.ph-img` slots)
+- [ ] **WhatsApp number** — float currently points to `wa.me/351000000000`; update to real club number
+- [ ] **Class schedules / prices / ages** — currently sensible placeholders; confirm with club
+- [ ] **Real championship results** — fill the timeline ("O teu título aqui" card) with actual club achievements
+- [ ] **Privacy/RGPD page** — cookie banner links to it
+- [ ] **Hosting decision** — domain registered but hosting platform not yet decided
+
+## Instagram feed — implementation notes
+
+**Status:** ✅ Live and functioning
+
+**Approach:** Behold.so free tier JSON feed (no iframe, no monthly subscription, no branding)
+
+**Feed URL:** `https://feeds.behold.so/PiIe2YpnUh4rELRtiDFJ`
+
+**Key technical detail:** Behold's response is an object with a nested `posts` array, not a bare array. Images must use `sizes.medium.mediaUrl` (Behold's CDN) rather than `mediaUrl` (Instagram's CDN, which blocks hotlinking).
+
+**Client requirements met:**
+- Zero monthly cost
+- Zero manual maintenance (token refresh handled by Behold)
+- Seamless visual integration (custom CSS, no iframe)
+- Bilingual (PT/EN relative timestamps)
+- Graceful fallback (skeleton to branded tiles if fetch fails)
+
+**Future upgrade path:** If hosting infrastructure becomes available, Option A (Meta Graph API with server-side token refresh) can replace this without changing HTML/CSS structure.
 
 ## File structure
 ```
@@ -65,3 +86,4 @@ resources/
 - Ask for **scoped edits** by section marker ("change the hero headline", "restyle the class cards"), not "redo the page".
 - One focused change per message; batch related tweaks together.
 - For visual-only changes, consider externalizing CSS to `styles.css` / JS to `script.js` so edits never touch index.html.
+- Instagram feed is auto-updating — no edits needed unless Behold configuration changes or feed ID expires.
