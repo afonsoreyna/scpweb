@@ -183,11 +183,24 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .insta h2{font-size:clamp(2rem,3.6vw,3.1rem);margin-top:14px}
 .insta .sub{color:var(--slate);max-width:46ch;margin-top:12px}
 .ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:40px}
-.ig{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;background:linear-gradient(150deg,#0d3c5c,#00A8E8);box-shadow:var(--shadow-sm)}
-.ig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.ig .ig-ic{position:absolute;top:10px;right:10px;z-index:2;color:#fff;opacity:.9}
+.ig{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;background:linear-gradient(150deg,#0d3c5c,#00A8E8);box-shadow:var(--shadow-sm);display:block;cursor:pointer}
+.ig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+.ig:hover img{transform:scale(1.07)}
+
+/* overlay — slides up caption on hover */
+.ig-ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;opacity:0;transition:opacity .28s ease;background:linear-gradient(180deg,transparent 35%,rgba(10,36,51,.82) 100%)}
 .ig:hover .ig-ov{opacity:1}
-.ig-ov{position:absolute;inset:0;background:rgba(10,36,51,.45);opacity:0;transition:.25s;display:grid;place-items:center;color:#fff}
+.ig-caption{padding:12px 12px 10px;color:#fff;font-size:.78rem;line-height:1.4;font-family:"Inter",sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ig-ts{display:block;font-family:"Archivo";font-weight:700;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:5px}
+
+/* top-right badges */
+.ig-badge{position:absolute;top:9px;right:9px;z-index:3;display:flex;gap:5px}
+.ig-badge span{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:rgba(10,36,51,.52);backdrop-filter:blur(6px);color:#fff;font-size:.72rem;line-height:1}
+
+/* skeleton shimmer */
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.ig.skel{pointer-events:none}
+.ig.skel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.08) 50%,rgba(255,255,255,0) 100%);background-size:200% 100%;animation:shimmer 1.6s infinite linear}
 .ig-note{margin-top:26px;background:rgba(0,168,232,.08);border:1px dashed rgba(0,168,232,.5);border-radius:14px;padding:16px 20px;font-size:.9rem;color:var(--slate)}
 .ig-note b{color:var(--ink)}
 
@@ -530,24 +543,15 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
       <a class="btn btn-surf" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener">@surfingclubeportugal</a>
     </div>
 
-    <!-- ============================================================
-         LIVE INSTAGRAM FEED GOES HERE.
-         Substituir a grelha abaixo pelo widget escolhido, por ex.:
-         <iframe src="https://widget.tagembed.com/XXXX" ...></iframe>
-         (Behold.so / EmbedSocial / SnapWidget / LightWidget / Tagembed)
-         Estes widgets renovam o token automaticamente — sem manutenção manual.
-         ============================================================ -->
+    <!-- Live Instagram feed — rendered from Behold.so JSON, no iframe, no monthly cost -->
     <div class="ig-grid reveal" id="ig-grid">
-      <a class="ig" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=400&q=60"><span class="ig-ic">◎</span><span class="ig-ov">↗</span></a>
-      <a class="ig" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?auto=format&fit=crop&w=400&q=60"><span class="ig-ic">◎</span><span class="ig-ov">↗</span></a>
-      <a class="ig" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1509914398892-963f53e6e2f1?auto=format&fit=crop&w=400&q=60"><span class="ig-ic">◎</span><span class="ig-ov">↗</span></a>
-      <a class="ig" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1455729552865-3658a5d39692?auto=format&fit=crop&w=400&q=60"><span class="ig-ic">◎</span><span class="ig-ov">↗</span></a>
-      <a class="ig" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1520116468816-95b69f847357?auto=format&fit=crop&w=400&q=60"><span class="ig-ic">◎</span><span class="ig-ov">↗</span></a>
-      <a class="ig" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1502933691298-84fc14542831?auto=format&fit=crop&w=400&q=60"><span class="ig-ic">◎</span><span class="ig-ov">↗</span></a>
-    </div>
-    <div class="ig-note reveal">
-      <b data-pt="Nota técnica (para quem montar o site):" data-en="Tech note (for whoever sets up the site):">Nota técnica (para quem montar o site):</b>
-      <span data-pt=" esta grelha é um marcador. O feed real entra através de um widget de Instagram que renova o acesso sozinho — sem ter de mexer no site." data-en=" this grid is a placeholder. The real feed plugs in via an auto-refreshing Instagram widget — no manual upkeep on the site."> esta grelha é um marcador. O feed real entra através de um widget de Instagram que renova o acesso sozinho — sem ter de mexer no site.</span>
+      <!-- Skeleton placeholders shown while fetch is in flight -->
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
     </div>
   </div>
 </section>
@@ -755,6 +759,102 @@ function cookieChoice(all){
 
 /* ---------- year ---------- */
 document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* ---------- Instagram live feed (Behold.so JSON — no iframe, no cost) ---------- */
+(function(){
+  var FEED='https://feeds.behold.so/PiIe2YpnUh4rELRtiDFJ';
+  var MAX=6;
+
+  /* relative timestamp — bilingual */
+  function relTime(iso){
+    var lang=document.documentElement.lang==='en'?'en':'pt';
+    var diff=Math.floor((Date.now()-new Date(iso))/1000);
+    var tbl={
+      pt:[[60,'agora'],[3600,'há {n} min'],[86400,'há {n}h'],[604800,'há {n} dias'],[2592000,'há {n} sem.'],[Infinity,'há {n} meses']],
+      en:[[60,'now'],[3600,'{n}m ago'],[86400,'{n}h ago'],[604800,'{n}d ago'],[2592000,'{n}w ago'],[Infinity,'{n}mo ago']]
+    };
+    var divs=[1,60,3600,86400,604800,2592000];
+    var rows=tbl[lang];
+    for(var i=0;i<rows.length;i++){
+      if(diff<rows[i][0]){
+        var n=Math.floor(diff/divs[i])||1;
+        return rows[i][1].replace('{n}',n);
+      }
+    }
+    return '';
+  }
+
+  /* media type badge SVGs */
+  function badge(type){
+    if(type==='VIDEO'){
+      return '<span title="Video"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>';
+    }
+    if(type==='CAROUSEL_ALBUM'){
+      return '<span title="Album"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="14" rx="2"/><path d="M6 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg></span>';
+    }
+    /* IMAGE — Instagram camera icon */
+    return '<span title="Photo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg></span>';
+  }
+
+  /* build one grid cell */
+  function buildCell(post){
+    /* Use Behold's own CDN (sizes.medium) — Instagram's mediaUrl blocks hotlinking.
+       Fall back through the chain: sizes.medium → sizes.small → sizes.large → mediaUrl */
+    var sz=post.sizes||{};
+    var imgSrc=(sz.medium&&sz.medium.mediaUrl)||(sz.small&&sz.small.mediaUrl)||(sz.large&&sz.large.mediaUrl)||post.mediaUrl;
+    var caption=(post.caption||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    var ts=relTime(post.timestamp);
+    var a=document.createElement('a');
+    a.className='ig';
+    a.href=post.permalink;
+    a.target='_blank';
+    a.rel='noopener';
+    a.setAttribute('aria-label', caption?caption.slice(0,80):'Instagram post');
+    a.innerHTML=
+      '<img src="'+imgSrc+'" alt="" loading="lazy" decoding="async">'+
+      '<div class="ig-badge">'+badge(post.mediaType)+'</div>'+
+      '<div class="ig-ov">'+
+        '<p class="ig-caption">'+
+          (caption?'<span>'+caption+'</span>':'')+
+          '<span class="ig-ts">'+ts+'</span>'+
+        '</p>'+
+      '</div>';
+    /* fade in once image loads */
+    a.style.opacity='0';
+    a.style.transition='opacity .4s ease';
+    var img=a.querySelector('img');
+    img.addEventListener('load',function(){a.style.opacity='1';});
+    img.addEventListener('error',function(){a.style.opacity='1';});/* show even if img fails */
+    return a;
+  }
+
+  fetch(FEED)
+    .then(function(r){
+      if(!r.ok) throw new Error('feed error');
+      return r.json();
+    })
+    .then(function(data){
+      var posts=Array.isArray(data)?data:(data.posts||[]);
+      if(!posts.length) throw new Error('empty');
+      var grid=document.getElementById('ig-grid');
+      var cells=posts.slice(0,MAX).map(buildCell);
+      grid.innerHTML=''; /* clear skeletons */
+      cells.forEach(function(c){grid.appendChild(c);});
+    })
+    .catch(function(){
+      /* silent fallback — skeletons stay as branded gradient tiles,
+         all linking to the Instagram profile */
+      var grid=document.getElementById('ig-grid');
+      grid.querySelectorAll('.skel').forEach(function(el){
+        el.classList.remove('skel');
+        el.href='https://www.instagram.com/surfingclubeportugal/';
+        el.target='_blank';
+        el.rel='noopener';
+        el.removeAttribute('aria-hidden');
+        el.setAttribute('aria-label','Visita o nosso Instagram');
+      });
+    });
+})();
 </script>
 </body>
 </html>
