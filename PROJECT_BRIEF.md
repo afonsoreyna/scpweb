@@ -52,6 +52,7 @@ Each section has a comment banner like `<!-- =================== HERO ==========
 - [ ] **Real championship results** — fill the timeline ("O teu título aqui" card) with actual club achievements
 - [ ] **Privacy/RGPD page** — cookie banner links to it
 - [ ] **Hosting decision** — domain registered but hosting platform not yet decided
+- [ ] **gdpr compliance**
 
 ## Instagram feed — implementation notes
 
