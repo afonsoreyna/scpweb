@@ -10,16 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#0A2433;            /* deep atlantic ink */
+  --ink:#0A2433;
   --ink-2:#10314a;
-  --surf:#00A8E8;           /* brand cyan (from logo) */
+  --surf:#00A8E8;
   --surf-bright:#3BC6F5;
-  --sun:#F7941E;            /* brand orange (from logo) */
+  --sun:#F7941E;
   --sun-deep:#E8780A;
-  --foam:#EAF4F6;           /* sea-foam light bg */
+  --foam:#EAF4F6;
   --foam-2:#DCEDF0;
-  --paper:#FBFEFE;          /* card white */
-  --slate:#4E626E;          /* granite secondary text */
+  --paper:#FBFEFE;
+  --slate:#4E626E;
   --line:rgba(10,36,51,.12);
   --shadow:0 18px 50px -22px rgba(10,36,51,.45);
   --shadow-sm:0 8px 26px -16px rgba(10,36,51,.4);
@@ -40,12 +40,12 @@ img{display:block;max-width:100%}
 .eyebrow{font-family:"Archivo";font-weight:700;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--surf);display:inline-flex;align-items:center;gap:.6rem}
 .eyebrow::before{content:"";width:26px;height:2px;background:var(--sun);display:inline-block}
 section{position:relative}
-.sec-pad{padding:clamp(64px,9vw,120px) 0}
+.sec-pad{padding:clamp(40px,5.5vw,72px) 0}
 
 html[lang="pt"] .lang-en { display: none; }
 html[lang="en"] .lang-pt { display: none; }
 
-/* ---------- wave divider signature ---------- */
+/* ---------- wave divider ---------- */
 .wave-rule{display:block;width:118px;height:14px;margin:18px 0 0}
 .wave-rule path{fill:none;stroke-width:5;stroke-linecap:round}
 .wave-rule .c{stroke:var(--surf)}
@@ -80,10 +80,43 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
 .burger span{width:24px;height:2.5px;background:var(--ink);border-radius:2px;transition:.25s}
 
-/* ---------- hero ---------- */
-.hero{position:relative;min-height:clamp(620px,92vh,860px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:linear-gradient(160deg,#0a2433,#0d3c5c 55%,#00557d)}
-.hero .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.46;filter:saturate(1.05)}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,36,51,.25) 0%,rgba(10,36,51,.15) 35%,rgba(10,36,51,.78) 100%)}
+/* ---------- HERO — video background ---------- */
+.hero{
+  position:relative;
+  min-height:clamp(620px,92vh,860px);
+  display:flex;align-items:flex-end;
+  color:#fff;overflow:hidden;
+  background:linear-gradient(160deg,#0a2433,#0d3c5c 55%,#00557d);
+}
+
+/* video fills the hero exactly like the old photo */
+.hero-video-wrap{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  overflow:hidden;
+  z-index:0;
+}
+.hero-video-wrap iframe{
+  /* YouTube embed — scaled up to cover the container with no letterbox */
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  /* 16:9 aspect, but we need it bigger than the container in at least one axis */
+  width:calc(100% + 200px);
+  height:calc(100% + 200px);
+  min-width:calc(177.78vh);   /* 16/9 × 100vh */
+  min-height:calc(56.25vw);   /* 9/16 × 100vw */
+  pointer-events:none;
+  border:0;
+  opacity:.46;
+  filter:saturate(1.05);
+}
+
+/* gradient overlay — same as before */
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(10,36,51,.25) 0%,rgba(10,36,51,.15) 35%,rgba(10,36,51,.78) 100%);
+}
 .hero .wrap{position:relative;z-index:3;padding-bottom:clamp(48px,7vw,86px);padding-top:90px}
 .hero-eyebrow{color:#fff}.hero-eyebrow::before{background:var(--sun)}
 .hero h1{font-size:clamp(2.6rem,6.6vw,5.4rem);font-weight:900;max-width:16ch;margin:.5rem 0 0;text-shadow:0 4px 30px rgba(0,0,0,.3)}
@@ -106,7 +139,7 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .stat .l{font-size:.82rem;color:rgba(255,255,255,.72);margin-top:8px;letter-spacing:.02em}
 
 /* ---------- história ---------- */
-.story{background:var(--paper)}
+.story{background:var(--foam)}
 .story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,5vw,72px);align-items:center}
 .story h2{font-size:clamp(2rem,3.6vw,3.1rem);margin-top:14px}
 .story p{color:var(--slate);font-size:1.05rem;margin:1.1rem 0 0;max-width:46ch}
@@ -117,10 +150,10 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .ph .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:"Archivo";font-weight:600;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.78);background:rgba(10,36,51,.42);backdrop-filter:blur(4px);padding:5px 10px;border-radius:999px}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .story-media .ph.a{aspect-ratio:4/5}
-.story-media .ph.b{position:absolute;width:52%;aspect-ratio:1/1;right:-6%;bottom:-9%;border:6px solid var(--paper)}
+.story-media .ph.b{position:absolute;width:52%;aspect-ratio:1/1;right:-6%;bottom:-9%;border:6px solid var(--foam)}
 @media(max-width:560px){.story-media .ph.b{position:relative;right:0;bottom:0;width:64%;margin:-30px 0 0 auto}}
 
-/* ---------- conquistas (timeline) ---------- */
+/* ---------- conquistas ---------- */
 .feats{background:var(--ink);color:#fff;overflow:hidden}
 .feats .eyebrow{color:var(--surf-bright)}
 .feats h2{font-size:clamp(2rem,3.6vw,3.1rem);max-width:18ch}
@@ -137,9 +170,9 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .tl-hint{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:14px;font-style:italic}
 
 /* ---------- aulas ---------- */
-.classes{background:var(--foam)}
+.classes{background:var(--paper)}
 .classes h2{font-size:clamp(2rem,3.6vw,3.1rem);margin-top:14px}
-.classes .sub{color:var(--slate);max-width:54ch;margin-top:12px; margin-left: auto; margin-right: auto}
+.classes .sub{color:var(--slate);max-width:54ch;margin-top:12px;margin-left:auto;margin-right:auto}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:42px}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px 24px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s,border-color .25s}
 .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
@@ -160,7 +193,7 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .note{font-size:.84rem;color:var(--slate);font-style:italic}
 
 /* ---------- galeria ---------- */
-.gallery{background:var(--paper)}
+.gallery{background:var(--foam-2)}
 .gallery h2{font-size:clamp(2rem,3.6vw,3.1rem);margin-top:14px}
 .grid-g{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px;margin-top:40px}
 .gitem{position:relative;border-radius:14px;overflow:hidden;cursor:pointer}
@@ -178,37 +211,140 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .lightbox .x{position:absolute;top:22px;right:26px;font-size:2rem;color:#fff;cursor:pointer;font-family:"Archivo"}
 
 /* ---------- instagram ---------- */
-.insta{background:linear-gradient(180deg,var(--foam),var(--foam-2))}
+.insta{background:var(--ink)}
 .insta-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px}
-.insta h2{font-size:clamp(2rem,3.6vw,3.1rem);margin-top:14px}
-.insta .sub{color:var(--slate);max-width:46ch;margin-top:12px}
+.insta h2{font-size:clamp(2rem,3.6vw,3.1rem);margin-top:14px;color:#fff}
+.insta .eyebrow{color:var(--surf-bright)}
+.insta .sub{color:rgba(255,255,255,.66);max-width:46ch;margin-top:12px}
 .ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:40px}
 .ig{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;background:linear-gradient(150deg,#0d3c5c,#00A8E8);box-shadow:var(--shadow-sm);display:block;cursor:pointer}
 .ig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
 .ig:hover img{transform:scale(1.07)}
-
-/* overlay — slides up caption on hover */
 .ig-ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;opacity:0;transition:opacity .28s ease;background:linear-gradient(180deg,transparent 35%,rgba(10,36,51,.82) 100%)}
 .ig:hover .ig-ov{opacity:1}
 .ig-caption{padding:12px 12px 10px;color:#fff;font-size:.78rem;line-height:1.4;font-family:"Inter",sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ig-ts{display:block;font-family:"Archivo";font-weight:700;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:5px}
-
-/* top-right badges */
 .ig-badge{position:absolute;top:9px;right:9px;z-index:3;display:flex;gap:5px}
 .ig-badge span{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:rgba(10,36,51,.52);backdrop-filter:blur(6px);color:#fff;font-size:.72rem;line-height:1}
-
-/* skeleton shimmer */
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .ig.skel{pointer-events:none}
 .ig.skel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.08) 50%,rgba(255,255,255,0) 100%);background-size:200% 100%;animation:shimmer 1.6s infinite linear}
-.ig-note{margin-top:26px;background:rgba(0,168,232,.08);border:1px dashed rgba(0,168,232,.5);border-radius:14px;padding:16px 20px;font-size:.9rem;color:var(--slate)}
-.ig-note b{color:var(--ink)}
 
-/* ---------- contacto ---------- */
-.contact{background:var(--ink);color:#fff}
-.contact-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(30px,5vw,60px);align-items:stretch}
+/* ---------- CONTACT — new layout ---------- */
+.contact{background:var(--ink-2);color:#fff}
 .contact h2{font-size:clamp(2rem,3.6vw,3.1rem);margin-top:14px;color:#fff}
 .contact .eyebrow{color:var(--surf-bright)}
+
+/* outer 2-col grid: left=info, right=spotlight+map stacked */
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1.05fr;
+  gap:clamp(30px,5vw,60px);
+  align-items:start;
+}
+
+/* right column stacks spotlight on top, map below */
+.contact-right{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+/* ---- spotlight video slideshow ---- */
+.spotlight{
+  position:relative;
+  border-radius:var(--r);
+  overflow:hidden;
+  background:#0a2433;
+  aspect-ratio:16/9;
+  box-shadow:var(--shadow);
+}
+
+/* each iframe slide */
+.spotlight-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity .8s ease;
+  pointer-events:none;
+}
+.spotlight-slide.active{
+  opacity:1;
+  pointer-events:auto;
+}
+.spotlight-slide iframe{
+  width:100%;height:100%;border:0;
+}
+/* transparent overlay blocks YouTube title/share/channel UI
+   while still allowing the video to play through underneath */
+.spotlight-slide::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  background:transparent;
+}
+
+/* progress dots */
+.spotlight-dots{
+  position:absolute;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+  display:flex;
+  gap:8px;
+}
+.spotlight-dots span{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:rgba(255,255,255,.4);
+  cursor:pointer;
+  transition:background .3s, transform .3s;
+}
+.spotlight-dots span.on{
+  background:#fff;
+  transform:scale(1.3);
+}
+
+/* progress bar at bottom of spotlight */
+.spotlight-bar{
+  position:absolute;
+  bottom:0;left:0;
+  height:3px;
+  background:var(--sun);
+  width:0%;
+  transition:width linear;
+  z-index:10;
+}
+
+/* label badge top-left */
+.spotlight-label{
+  position:absolute;
+  top:12px;left:12px;
+  z-index:10;
+  font-family:"Archivo";font-weight:700;font-size:.66rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.9);
+  background:rgba(10,36,51,.52);
+  backdrop-filter:blur(6px);
+  padding:5px 10px;border-radius:999px;
+}
+
+/* ---- map ---- */
+.map-wrap{
+  position:relative;
+  border-radius:var(--r);
+  overflow:hidden;
+  height:320px;
+  background:linear-gradient(150deg,#0d3c5c,#00557d);
+  box-shadow:var(--shadow);
+  flex-shrink:0;
+}
+.map-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.15)}
+.map-open{position:absolute;left:14px;bottom:14px;z-index:3}
+
+/* contact info */
 .cinfo{margin-top:26px;display:flex;flex-direction:column;gap:4px}
 .cline{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12)}
 .cline .ic{flex:0 0 22px;color:var(--sun);margin-top:2px}
@@ -216,9 +352,6 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .cline .v{font-size:1rem;color:#fff;margin-top:2px}
 .cline a.v:hover{color:var(--surf-bright)}
 .cact{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
-.map-wrap{position:relative;border-radius:var(--r);overflow:hidden;min-height:360px;background:linear-gradient(150deg,#0d3c5c,#00557d);box-shadow:var(--shadow)}
-.map-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.15)}
-.map-open{position:absolute;left:14px;bottom:14px;z-index:3}
 
 /* ---------- footer ---------- */
 footer{background:#061a25;color:rgba(255,255,255,.7)}
@@ -233,70 +366,19 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 .socials a:hover{background:var(--surf);border-color:var(--surf);transform:translateY(-3px)}
 .foot-base{border-top:1px solid rgba(255,255,255,.12);padding:22px 0;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:.82rem;color:rgba(255,255,255,.5)}
 
-/* floating whatsapp + back to top */
-.wa{position:fixed;right:22px;bottom:22px;z-index:90;display:flex;align-items:center;gap:0;background:#25D366;color:#fff;border-radius:999px;padding:14px;box-shadow:0 14px 34px -10px rgba(37,211,102,.7);overflow:hidden;transition:.3s;max-width:54px}
-.wa:hover{max-width:230px;padding-right:22px}
-.wa svg{flex:0 0 26px}
-.wa span{white-space:nowrap;font-family:"Archivo";font-weight:700;font-size:.9rem;margin-left:12px;opacity:0;transition:.2s}
-.wa:hover span{opacity:1}
-
-/* floating social buttons */
-.floaters{
-  position:fixed;
-  right:22px;
-  bottom:22px;
-  z-index:90;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  align-items:flex-end;
-}
-
-.floater{
-  display:flex;
-  align-items:center;
-  gap:0;
-  color:#fff;
-  border-radius:999px;
-  padding:14px;
-  overflow:hidden;
-  transition:.3s;
-  max-width:54px;
-  box-shadow:0 14px 34px -10px rgba(10,36,51,.45);
-}
-
-.floater:hover{
-  max-width:240px;
-  padding-right:22px;
-}
-
-.floater svg{
-  flex:0 0 26px;
-}
-
-.floater span{
-  white-space:nowrap;
-  font-family:"Archivo";
-  font-weight:700;
-  font-size:.9rem;
-  margin-left:12px;
-  opacity:0;
-  transition:.2s;
-}
-
-.floater:hover span{
-  opacity:1;
-}
-
-/* individual brand colors */
+/* ---------- floating socials ---------- */
+.floaters{position:fixed;right:22px;bottom:22px;z-index:90;display:flex;flex-direction:column;gap:12px;align-items:flex-end;}
+.floater{display:flex;align-items:center;gap:0;color:#fff;border-radius:999px;padding:14px;overflow:hidden;transition:.3s;max-width:54px;box-shadow:0 14px 34px -10px rgba(10,36,51,.45);}
+.floater:hover{max-width:240px;padding-right:22px;}
+.floater svg{flex:0 0 26px;}
+.floater span{white-space:nowrap;font-family:"Archivo";font-weight:700;font-size:.9rem;margin-left:12px;opacity:0;transition:.2s;}
+.floater:hover span{opacity:1;}
 .floater.whatsapp{background:#25D366}
-.floater.instagram{
-  background:linear-gradient(135deg,#833AB4,#FD1D1D,#FCAF45);
-}
+.floater.instagram{background:linear-gradient(135deg,#833AB4,#FD1D1D,#FCAF45);}
 .floater.facebook{background:#1877F2}
 .floater.email{background:var(--ink)}
 
-/* cookie banner */
+/* ---------- cookie ---------- */
 .cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:120;max-width:560px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px -18px rgba(10,36,51,.5);padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;transform:translateY(140%);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .cookie.show{transform:none}
 .cookie p{margin:0;font-size:.86rem;color:var(--slate);flex:1 1 240px}
@@ -304,17 +386,18 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 .cookie .cbtns{display:flex;gap:10px}
 .cookie .btn{padding:9px 16px;font-size:.82rem}
 
-/* reveal */
+/* ---------- reveal ---------- */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:none}
 
-/* mobile nav drawer */
+/* ---------- mobile drawer ---------- */
 .drawer{position:fixed;inset:0 0 0 auto;width:min(82vw,340px);background:var(--paper);z-index:80;transform:translateX(100%);transition:.35s cubic-bezier(.2,.8,.2,1);box-shadow:-20px 0 60px -20px rgba(10,36,51,.5);padding:90px 28px 28px;display:flex;flex-direction:column;gap:6px}
 .drawer.on{transform:none}
 .drawer a{font-family:"Archivo";font-weight:700;font-size:1.15rem;padding:13px 0;border-bottom:1px solid var(--line)}
 .scrim{position:fixed;inset:0;background:rgba(10,36,51,.5);z-index:70;opacity:0;pointer-events:none;transition:.3s}
 .scrim.on{opacity:1;pointer-events:auto}
 
+/* ---------- responsive ---------- */
 @media(max-width:1020px){
   .cards{grid-template-columns:repeat(2,1fr)}
   .ig-grid{grid-template-columns:repeat(3,1fr)}
@@ -326,6 +409,7 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
   .stats .row{grid-template-columns:repeat(2,1fr)}
   .grid-g{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
   .foot{grid-template-columns:1fr 1fr}
+  .map-wrap{height:260px}
 }
 @media(max-width:560px){
   .cards{grid-template-columns:1fr}
@@ -345,17 +429,15 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top" aria-label="Surfing Clube de Portugal">
-      <!-- Added inline style to override global CSS, increase height, and bring it closer to the 74px container limits -->
-      <img src="resources/logowide.png" alt="Surfing Clube de Portugal" style="height: 60px; width: auto; object-fit: contain;">
-    </a> <!-- Note: Fixed missing closing anchor tag here -->
-    
+      <img src="resources/logowide.png" alt="Surfing Clube de Portugal" style="height:60px;width:auto;object-fit:contain;">
+    </a>
     <div class="nav-links">
       <nav aria-label="principal">
+        <a class="navlink" href="#aulas" data-pt="Aulas" data-en="Classes">Aulas</a>
+        <a class="navlink" href="#instagram" data-pt="Instagram" data-en="Instagram">Instagram</a>
         <a class="navlink" href="#historia" data-pt="História" data-en="Story">História</a>
         <a class="navlink" href="#conquistas" data-pt="Conquistas" data-en="Achievements">Conquistas</a>
-        <a class="navlink" href="#aulas" data-pt="Aulas" data-en="Classes">Aulas</a>
         <a class="navlink" href="#galeria" data-pt="Galeria" data-en="Gallery">Galeria</a>
-        <a class="navlink" href="#instagram" data-pt="Instagram" data-en="Instagram">Instagram</a>
         <a class="navlink" href="#contacto" data-pt="Contacto" data-en="Contact">Contacto</a>
       </nav>
       <div class="nav-right">
@@ -372,23 +454,46 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 
 <div class="scrim" id="scrim" onclick="toggleDrawer(false)"></div>
 <aside class="drawer" id="drawer">
+  <a href="#aulas" onclick="toggleDrawer(false)" data-pt="Aulas" data-en="Classes">Aulas</a>
+  <a href="#instagram" onclick="toggleDrawer(false)" data-pt="Instagram" data-en="Instagram">Instagram</a>
   <a href="#historia" onclick="toggleDrawer(false)" data-pt="História" data-en="Story">História</a>
   <a href="#conquistas" onclick="toggleDrawer(false)" data-pt="Conquistas" data-en="Achievements">Conquistas</a>
-  <a href="#aulas" onclick="toggleDrawer(false)" data-pt="Aulas" data-en="Classes">Aulas</a>
   <a href="#galeria" onclick="toggleDrawer(false)" data-pt="Galeria" data-en="Gallery">Galeria</a>
-  <a href="#instagram" onclick="toggleDrawer(false)" data-pt="Instagram" data-en="Instagram">Instagram</a>
   <a href="#contacto" onclick="toggleDrawer(false)" data-pt="Contacto" data-en="Contact">Contacto</a>
   <a class="btn btn-sun" style="justify-content:center;margin-top:18px" href="#contacto" onclick="toggleDrawer(false)" data-pt="Inscreve-te" data-en="Join us">Inscreve-te</a>
 </aside>
 
 <!-- =================== HERO =================== -->
+<!--
+  HERO VIDEO — current ID: JUig1YpxuGk — update both occurrences in the src URL to change it.
+  The URL params explained:
+    autoplay=1        → starts immediately
+    mute=1            → required for autoplay to work in all browsers
+    loop=1            → loops forever
+    playlist=ID       → required for loop to work (must match videoid)
+    controls=0        → hides the YouTube player controls
+    disablekb=1       → disables keyboard shortcuts on the iframe
+    playsinline=1     → plays inline on iOS (no fullscreen hijack)
+    rel=0             → no "related videos" at the end
+    modestbranding=1  → minimal YouTube logo
+    iv_load_policy=3  → no annotations
+    enablejsapi=1     → lets JS control the player if needed later
+-->
 <section class="hero" id="top">
-  <!-- PLACEHOLDER PHOTO — substituir por foto do clube (São Pedro do Estoril). -->
-  <img class="photo ph-img" alt="" src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1600&q=70">
+  <div class="hero-video-wrap">
+    <iframe
+      id="hero-iframe"
+      src="https://www.youtube.com/embed/JUig1YpxuGk?autoplay=1&mute=1&loop=1&playlist=JUig1YpxuGk&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1"
+      title="Hero background video"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      aria-hidden="true">
+    </iframe>
+  </div>
   <div class="wrap">
     <span class="eyebrow hero-eyebrow">São Pedro do Estoril · Cascais</span>
     <h1 data-pt="O mar é a nossa casa desde 1978" data-en="The ocean has been home since 1978">O mar é a nossa casa desde 1978</h1>
-    <p class="lead" data-pt="Somos o primeiro e mais antigo clube de surf de Portugal. Formamos gerações de atletas e amantes do mar na praia onde o surf português começou." data-en="We are Portugal’s first and oldest surf club. We’ve shaped generations of athletes and ocean lovers on the beach where Portuguese surfing began.">Somos o primeiro e mais antigo clube de surf de Portugal. Formamos gerações de atletas e amantes do mar na praia onde o surf português começou.</p>
+    <p class="lead" data-pt="Somos o primeiro e mais antigo clube de surf de Portugal. Formamos gerações de atletas e amantes do mar na praia onde o surf português começou." data-en="We are Portugal's first and oldest surf club. We've shaped generations of athletes and ocean lovers on the beach where Portuguese surfing began.">Somos o primeiro e mais antigo clube de surf de Portugal. Formamos gerações de atletas e amantes do mar na praia onde o surf português começou.</p>
     <div class="hero-cta">
       <a class="btn btn-sun" href="#aulas" data-pt="Ver as aulas" data-en="See our classes">Ver as aulas</a>
       <a class="btn btn-white" href="#contacto" data-pt="Fala connosco" data-en="Get in touch">Fala connosco</a>
@@ -407,48 +512,10 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
         <span class="lang-en">1<span class="u">st</span></span>
       </div>
       <div class="l" data-pt="clube de surf de Portugal" data-en="surf club in Portugal">clube de surf de Portugal</div>
-      </div>
+    </div>
     <div class="stat"><div class="n">20<span class="u">+</span></div><div class="l" data-pt="edições do Estoril Surf Festival" data-en="Estoril Surf Festival editions">edições do Estoril Surf Festival</div></div>
     <div class="stat"><div class="n">7</div><div class="l" data-pt="modalidades: surf · longboard · skimboard · bodyboard · stand-up paddle · bodysurf · águas livres" data-en="disciplines: surf · longboard · skimboard · bodyboard · stand-up paddle · bodysurf · open water">modalidades: surf · longboard · skimboard · bodyboard · stand-up paddle · bodysurf · águas livres</div></div>
   </div></div>
-</section>
-
-<!-- =================== HISTÓRIA =================== -->
-<section class="story sec-pad" id="historia">
-  <div class="wrap story-grid">
-    <div class="reveal">
-      <span class="eyebrow" data-pt="A nossa história" data-en="Our story">A nossa história</span>
-      <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-      <h2 data-pt="Onde o surf português começou" data-en="Where Portuguese surf began">Onde o surf português começou</h2>
-      <p data-pt="Em 1978, na praia de São Pedro do Estoril, um grupo de amigos apaixonados pelo mar fundou aquele que se tornaria o primeiro e mais antigo clube de surf do país. Desde então, o clube nunca saiu da água." data-en="In 1978, on the beach of São Pedro do Estoril, a group of friends in love with the sea founded what would become the country's first and oldest surf club. It has never left the water since.">Em 1978, na praia de São Pedro do Estoril, um grupo de amigos apaixonados pelo mar fundou aquele que se tornaria o primeiro e mais antigo clube de surf do país. Desde então, o clube nunca saiu da água.</p>
-      <p data-pt="Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf." data-en="Generations grew up here — from their first boards to championship heats. More than a school, we're a community bound to the Estoril coast, to togetherness, and to the genuine spirit of surf.">Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf.</p>
-      <p class="pullquote" data-pt="Aqui, o surf passa de geração em geração." data-en="Here, surfing is passed from generation to generation.">Aqui, o surf passa de geração em geração.</p>
-    </div>
-    <div class="story-media reveal">
-      <div class="ph a"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?auto=format&fit=crop&w=900&q=70"><span class="tag" data-pt="Foto do clube" data-en="Club photo">Foto do clube</span></div>
-      <div class="ph b"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=700&q=70"><span class="tag" data-pt="Arquivo" data-en="Archive">Arquivo</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- =================== CONQUISTAS =================== -->
-<section class="feats sec-pad" id="conquistas">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow" data-pt="Conquistas & competição" data-en="Achievements & competition">Conquistas & competição</span>
-      <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-      <h2 data-pt="Uma linha do tempo feita de ondas" data-en="A timeline made of waves">Uma linha do tempo feita de ondas</h2>
-      <p class="sub" data-pt="Quase meio século a organizar provas e a levar atletas de São Pedro às competições regionais, nacionais e internacionais." data-en="Almost half a century organising events and taking athletes from São Pedro to regional, national and international competition.">Quase meio século a organizar provas e a levar atletas de São Pedro às competições regionais, nacionais e internacionais.</p>
-    </div>
-    <div class="timeline reveal">
-      <div class="tl"><div class="yr">1978</div><h3 data-pt="A fundação" data-en="The founding">A fundação</h3><p data-pt="Nasce em São Pedro do Estoril o primeiro clube de surf de Portugal." data-en="Portugal's first surf club is born in São Pedro do Estoril.">Nasce em São Pedro do Estoril o primeiro clube de surf de Portugal.</p></div>
-      <div class="tl"><div class="yr">80—90</div><h3 data-pt="Pioneiros da competição" data-en="Competition pioneers">Pioneiros da competição</h3><p data-pt="O clube organiza alguns dos primeiros campeonatos de surf do país." data-en="The club runs some of the country's earliest surf championships.">O clube organiza alguns dos primeiros campeonatos de surf do país.</p></div>
-      <div class="tl"><div class="yr">2005</div><h3 data-pt="Estoril Surf Festival" data-en="Estoril Surf Festival">Estoril Surf Festival</h3><p data-pt="Arranca o festival que enche o mês de novembro de provas — hoje com mais de 20 edições." data-en="The festival that fills November with heats begins — now past its 20th edition.">Arranca o festival que enche o mês de novembro de provas — hoje com mais de 20 edições.</p></div>
-      <div class="tl"><div class="yr" data-pt="Hoje" data-en="Today">Hoje</div><h3 data-pt="Casa de circuitos nacionais" data-en="Home to national circuits">Casa de circuitos nacionais</h3><p data-pt="Etapas regionais e nacionais de Surf, Longboard e Skimboard em São Pedro do Estoril." data-en="Regional and national stages of Surf, Longboard and Skimboard in São Pedro do Estoril.">Etapas regionais e nacionais de Surf, Longboard e Skimboard em São Pedro do Estoril.</p></div>
-      <div class="tl add"><div class="yr" data-pt="O teu título aqui" data-en="Your title here">O teu título aqui</div><p data-pt="Espaço para destacar campeões, pódios e atletas da casa. Envia-nos os resultados e nós damos-lhes palco." data-en="Space to spotlight champions, podiums and home-grown athletes. Send us the results and we'll give them a stage.">Espaço para destacar campeões, pódios e atletas da casa. Envia-nos os resultados e nós damos-lhes palco.</p></div>
-    </div>
-    <p class="tl-hint" data-pt="↔ Arrasta para ver mais · datas e resultados específicos a confirmar com o clube." data-en="↔ Drag to see more · specific dates and results to be confirmed with the club.">↔ Arrasta para ver mais · datas e resultados específicos a confirmar com o clube.</p>
-  </div>
 </section>
 
 <!-- =================== AULAS =================== -->
@@ -509,6 +576,67 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
   </div>
 </section>
 
+<!-- =================== INSTAGRAM =================== -->
+<section class="insta sec-pad" id="instagram">
+  <div class="wrap">
+    <div class="insta-head reveal">
+      <div>
+        <span class="eyebrow" data-pt="Últimas notícias" data-en="Latest news">Últimas notícias</span>
+        <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
+        <h2 data-pt="Segue o dia-a-dia no Instagram" data-en="Follow the day-to-day on Instagram">Segue o dia-a-dia no Instagram</h2>
+        <p class="sub" data-pt="Provas, aulas e as melhores ondas — a atualidade do clube vive no nosso Instagram." data-en="Heats, classes and the best waves — the club's latest lives on our Instagram.">Provas, aulas e as melhores ondas — a atualidade do clube vive no nosso Instagram.</p>
+      </div>
+      <a class="btn btn-surf" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener">@surfingclubeportugal</a>
+    </div>
+    <div class="ig-grid reveal" id="ig-grid">
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
+      <a class="ig skel" aria-hidden="true"></a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== HISTÓRIA =================== -->
+<section class="story sec-pad" id="historia">
+  <div class="wrap story-grid">
+    <div class="reveal">
+      <span class="eyebrow" data-pt="A nossa história" data-en="Our story">A nossa história</span>
+      <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
+      <h2 data-pt="Onde o surf português começou" data-en="Where Portuguese surf began">Onde o surf português começou</h2>
+      <p data-pt="Em 1978, na praia de São Pedro do Estoril, um grupo de amigos apaixonados pelo mar fundou aquele que se tornaria o primeiro e mais antigo clube de surf do país. Desde então, o clube nunca saiu da água." data-en="In 1978, on the beach of São Pedro do Estoril, a group of friends in love with the sea founded what would become the country's first and oldest surf club. It has never left the water since.">Em 1978, na praia de São Pedro do Estoril, um grupo de amigos apaixonados pelo mar fundou aquele que se tornaria o primeiro e mais antigo clube de surf do país. Desde então, o clube nunca saiu da água.</p>
+      <p data-pt="Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf." data-en="Generations grew up here — from their first boards to championship heats. More than a school, we're a community bound to the Estoril coast, to togetherness, and to the genuine spirit of surf.">Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf.</p>
+      <p class="pullquote" data-pt="Aqui, o surf passa de geração em geração." data-en="Here, surfing is passed from generation to generation.">Aqui, o surf passa de geração em geração.</p>
+    </div>
+    <div class="story-media reveal">
+      <div class="ph a"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?auto=format&fit=crop&w=900&q=70"><span class="tag" data-pt="Foto do clube" data-en="Club photo">Foto do clube</span></div>
+      <div class="ph b"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=700&q=70"><span class="tag" data-pt="Arquivo" data-en="Archive">Arquivo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== CONQUISTAS =================== -->
+<section class="feats sec-pad" id="conquistas">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" data-pt="Conquistas & competição" data-en="Achievements & competition">Conquistas & competição</span>
+      <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
+      <h2 data-pt="Uma linha do tempo feita de ondas" data-en="A timeline made of waves">Uma linha do tempo feita de ondas</h2>
+      <p class="sub" data-pt="Quase meio século a organizar provas e a levar atletas de São Pedro às competições regionais, nacionais e internacionais." data-en="Almost half a century organising events and taking athletes from São Pedro to regional, national and international competition.">Quase meio século a organizar provas e a levar atletas de São Pedro às competições regionais, nacionais e internacionais.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl"><div class="yr">1978</div><h3 data-pt="A fundação" data-en="The founding">A fundação</h3><p data-pt="Nasce em São Pedro do Estoril o primeiro clube de surf de Portugal." data-en="Portugal's first surf club is born in São Pedro do Estoril.">Nasce em São Pedro do Estoril o primeiro clube de surf de Portugal.</p></div>
+      <div class="tl"><div class="yr">80—90</div><h3 data-pt="Pioneiros da competição" data-en="Competition pioneers">Pioneiros da competição</h3><p data-pt="O clube organiza alguns dos primeiros campeonatos de surf do país." data-en="The club runs some of the country's earliest surf championships.">O clube organiza alguns dos primeiros campeonatos de surf do país.</p></div>
+      <div class="tl"><div class="yr">2005</div><h3 data-pt="Estoril Surf Festival" data-en="Estoril Surf Festival">Estoril Surf Festival</h3><p data-pt="Arranca o festival que enche o mês de novembro de provas — hoje com mais de 20 edições." data-en="The festival that fills November with heats begins — now past its 20th edition.">Arranca o festival que enche o mês de novembro de provas — hoje com mais de 20 edições.</p></div>
+      <div class="tl"><div class="yr" data-pt="Hoje" data-en="Today">Hoje</div><h3 data-pt="Casa de circuitos nacionais" data-en="Home to national circuits">Casa de circuitos nacionais</h3><p data-pt="Etapas regionais e nacionais de Surf, Longboard e Skimboard em São Pedro do Estoril." data-en="Regional and national stages of Surf, Longboard and Skimboard in São Pedro do Estoril.">Etapas regionais e nacionais de Surf, Longboard e Skimboard em São Pedro do Estoril.</p></div>
+      <div class="tl add"><div class="yr" data-pt="O teu título aqui" data-en="Your title here">O teu título aqui</div><p data-pt="Espaço para destacar campeões, pódios e atletas da casa. Envia-nos os resultados e nós damos-lhes palco." data-en="Space to spotlight champions, podiums and home-grown athletes. Send us the results and we'll give them a stage.">Espaço para destacar campeões, pódios e atletas da casa. Envia-nos os resultados e nós damos-lhes palco.</p></div>
+    </div>
+    <p class="tl-hint" data-pt="↔ Arrasta para ver mais · datas e resultados específicos a confirmar com o clube." data-en="↔ Drag to see more · specific dates and results to be confirmed with the club.">↔ Arrasta para ver mais · datas e resultados específicos a confirmar com o clube.</p>
+  </div>
+</section>
+
 <!-- =================== GALERIA =================== -->
 <section class="gallery sec-pad" id="galeria">
   <div class="wrap">
@@ -530,35 +658,18 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
   </div>
 </section>
 
-<!-- =================== INSTAGRAM =================== -->
-<section class="insta sec-pad" id="instagram">
-  <div class="wrap">
-    <div class="insta-head reveal">
-      <div>
-        <span class="eyebrow" data-pt="Últimas notícias" data-en="Latest news">Últimas notícias</span>
-        <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-        <h2 data-pt="Segue o dia-a-dia no Instagram" data-en="Follow the day-to-day on Instagram">Segue o dia-a-dia no Instagram</h2>
-        <p class="sub" data-pt="Provas, aulas e as melhores ondas — a atualidade do clube vive no nosso Instagram." data-en="Heats, classes and the best waves — the club's latest lives on our Instagram.">Provas, aulas e as melhores ondas — a atualidade do clube vive no nosso Instagram.</p>
-      </div>
-      <a class="btn btn-surf" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener">@surfingclubeportugal</a>
-    </div>
-
-    <!-- Live Instagram feed — rendered from Behold.so JSON, no iframe, no monthly cost -->
-    <div class="ig-grid reveal" id="ig-grid">
-      <!-- Skeleton placeholders shown while fetch is in flight -->
-      <a class="ig skel" aria-hidden="true"></a>
-      <a class="ig skel" aria-hidden="true"></a>
-      <a class="ig skel" aria-hidden="true"></a>
-      <a class="ig skel" aria-hidden="true"></a>
-      <a class="ig skel" aria-hidden="true"></a>
-      <a class="ig skel" aria-hidden="true"></a>
-    </div>
-  </div>
-</section>
-
 <!-- =================== CONTACTO =================== -->
+<!--
+  SPOTLIGHT VIDEOS — replace XSB_VqbQPmY and 2us_s0QEn-c
+  with your YouTube video IDs.
+  Same muted-autoplay parameters as the hero, but controls=1 so users
+  can pause/fullscreen if they want to watch closely.
+  The slideshow cycles every 8 seconds with a smooth crossfade.
+-->
 <section class="contact sec-pad" id="contacto">
   <div class="wrap contact-grid">
+
+    <!-- LEFT — contact info -->
     <div class="reveal">
       <span class="eyebrow" data-pt="Contacto" data-en="Contact">Contacto</span>
       <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
@@ -575,23 +686,64 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
         <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.5)" href="https://www.google.com/maps/dir/?api=1&destination=Praia+de+S%C3%A3o+Pedro+do+Estoril" target="_blank" rel="noopener" data-pt="Como chegar" data-en="Directions">Como chegar</a>
       </div>
     </div>
-    <div class="map-wrap reveal">
-      <iframe
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Mapa - Surfing Clube de Portugal"
-        src="https://www.google.com/maps?q=Surfing+Clube+de+Portugal&z=15&output=embed">
-      </iframe>
 
-      <a class="btn btn-white map-open"
-        href="https://www.google.com/maps?q=Surfing+Clube+de+Portugal"
-        target="_blank"
-        rel="noopener"
-        data-pt="Abrir no Maps"
-        data-en="Open in Maps">
-        Abrir no Maps
-      </a>
-    </div>
+    <!-- RIGHT — spotlight slideshow on top, map below -->
+    <div class="contact-right reveal">
+
+      <!-- Spotlight video slideshow -->
+      <div class="spotlight" id="spotlight" aria-label="Spotlight videos">
+
+        <div class="spotlight-label" data-pt="Em destaque" data-en="Spotlight">Em destaque</div>
+
+        <!-- Slide 1 — replace XSB_VqbQPmY -->
+        <div class="spotlight-slide active" id="slide-0">
+          <iframe
+            src="https://www.youtube.com/embed/FzESpRp-suM?autoplay=1&mute=1&loop=1&playlist=FzESpRp-suM&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3"
+            title="Spotlight video 1"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="spotlight-slide" id="slide-1">
+          <iframe
+            data-src="https://www.youtube.com/embed/6m1jISE7iUQ?autoplay=1&mute=1&loop=1&playlist=6m1jISE7iUQ&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3"
+            title="Spotlight video 2"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- Navigation dots -->
+        <div class="spotlight-dots" role="tablist" aria-label="Spotlight slides">
+          <span class="on" role="tab" aria-label="Slide 1" onclick="goToSlide(0)"></span>
+          <span role="tab" aria-label="Slide 2" onclick="goToSlide(1)"></span>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="spotlight-bar" id="spotlight-bar"></div>
+      </div>
+
+      <!-- Map -->
+      <div class="map-wrap">
+        <iframe
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa - Surfing Clube de Portugal"
+          src="https://www.google.com/maps?q=Surfing+Clube+de+Portugal&z=15&output=embed">
+        </iframe>
+        <a class="btn btn-white map-open"
+          href="https://www.google.com/maps?q=Surfing+Clube+de+Portugal"
+          target="_blank"
+          rel="noopener"
+          data-pt="Abrir no Maps"
+          data-en="Open in Maps">
+          Abrir no Maps
+        </a>
+      </div>
+
+    </div><!-- /.contact-right -->
   </div>
 </section>
 
@@ -608,9 +760,10 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
     </div>
     <div>
       <h4 data-pt="Navegação" data-en="Navigate">Navegação</h4>
+      <a href="#aulas" data-pt="Aulas" data-en="Classes">Aulas</a>
+      <a href="#instagram" data-pt="Instagram" data-en="Instagram">Instagram</a>
       <a href="#historia" data-pt="História" data-en="Story">História</a>
       <a href="#conquistas" data-pt="Conquistas" data-en="Achievements">Conquistas</a>
-      <a href="#aulas" data-pt="Aulas" data-en="Classes">Aulas</a>
       <a href="#galeria" data-pt="Galeria" data-en="Gallery">Galeria</a>
       <a href="#contacto" data-pt="Contacto" data-en="Contact">Contacto</a>
     </div>
@@ -627,67 +780,24 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
   </div>
 </footer>
 
-<!-- WHATSAPP FLOAT — substituir o número pelo telemóvel/WhatsApp do clube -->
-<!-- FLOATING SOCIALS -->
+<!-- =================== FLOATING SOCIALS =================== -->
 <div class="floaters">
-
-  <!-- WhatsApp -->
-  <a class="floater whatsapp"
-     href="https://wa.me/351000000000?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20aulas."
-     target="_blank"
-     rel="noopener"
-     aria-label="WhatsApp">
-
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
-      <path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.5.5 0 0 0 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2 4.7 4.7 0 0 0 1 2.5 10.7 10.7 0 0 0 4.1 3.6c2 .8 2 .5 2.4.5a2.4 2.4 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.5-.3z"/>
-    </svg>
-
+  <a class="floater whatsapp" href="https://wa.me/351000000000?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20aulas." target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.5.5 0 0 0 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2 4.7 4.7 0 0 0 1 2.5 10.7 10.7 0 0 0 4.1 3.6c2 .8 2 .5 2.4.5a2.4 2.4 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.5-.3z"/></svg>
     <span data-pt="WhatsApp" data-en="WhatsApp">WhatsApp</span>
   </a>
-
-  <!-- Instagram -->
-  <a class="floater instagram"
-     href="https://www.instagram.com/surfingclubeportugal/"
-     target="_blank"
-     rel="noopener"
-     aria-label="Instagram">
-
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
-      <rect x="2" y="2" width="20" height="20" rx="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/>
-    </svg>
-
+  <a class="floater instagram" href="https://www.instagram.com/surfingclubeportugal/" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg>
     <span>Instagram</span>
   </a>
-
-  <!-- Facebook -->
-  <a class="floater facebook"
-     href="https://www.facebook.com/surfingclubeportugal/"
-     target="_blank"
-     rel="noopener"
-     aria-label="Facebook">
-
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
-      <path d="M14 9h3l.5-3H14V4.5c0-.9.3-1.5 1.6-1.5H17V.2C16.7.1 15.6 0 14.4 0 11.9 0 10 1.5 10 4.3V6H7v3h3v9h4V9z"/>
-    </svg>
-
+  <a class="floater facebook" href="https://www.facebook.com/surfingclubeportugal/" target="_blank" rel="noopener" aria-label="Facebook">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M14 9h3l.5-3H14V4.5c0-.9.3-1.5 1.6-1.5H17V.2C16.7.1 15.6 0 14.4 0 11.9 0 10 1.5 10 4.3V6H7v3h3v9h4V9z"/></svg>
     <span>Facebook</span>
   </a>
-
-  <!-- Email -->
-  <a class="floater email"
-     href="mailto:info@surfingclubeportugal.com"
-     aria-label="Email">
-
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
-      <path d="M4 4h16v16H4z"/>
-      <path d="M4 7l8 6 8-6"/>
-    </svg>
-
+  <a class="floater email" href="mailto:info@surfingclubeportugal.com" aria-label="Email">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 7l8 6 8-6"/></svg>
     <span>Email</span>
   </a>
-
 </div>
 
 <!-- LIGHTBOX -->
@@ -707,15 +817,15 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 function setLang(l){
   document.documentElement.lang=l;
   document.querySelectorAll('[data-pt]').forEach(function(el){
-    var t=el.getAttribute('data-'+l); if(t!==null) el.textContent=t;
+    var t=el.getAttribute('data-'+l);if(t!==null)el.textContent=t;
   });
   document.getElementById('pt').classList.toggle('on',l==='pt');
   document.getElementById('en').classList.toggle('on',l==='en');
   try{localStorage.setItem('scp_lang',l)}catch(e){}
 }
-try{var sl=localStorage.getItem('scp_lang'); if(sl) setLang(sl);}catch(e){}
+try{var sl=localStorage.getItem('scp_lang');if(sl)setLang(sl);}catch(e){}
 
-/* ---------- nav scroll state ---------- */
+/* ---------- nav scroll ---------- */
 var nav=document.getElementById('nav');
 addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>20)});
 
@@ -726,13 +836,13 @@ function toggleDrawer(o){
   document.body.style.overflow=o?'hidden':'';
 }
 
-/* ---------- reveal on scroll ---------- */
+/* ---------- reveal ---------- */
 var io=new IntersectionObserver(function(es){
   es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
 },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
 
-/* ---------- image fallback (broken photo -> stays as branded gradient) ---------- */
+/* ---------- image fallback ---------- */
 document.querySelectorAll('img.ph-img').forEach(function(img){
   img.addEventListener('error',function(){img.style.display='none'});
 });
@@ -740,7 +850,7 @@ document.querySelectorAll('img.ph-img').forEach(function(img){
 /* ---------- gallery lightbox ---------- */
 document.querySelectorAll('#gallery-grid .gitem').forEach(function(it){
   it.addEventListener('click',function(){
-    var im=it.querySelector('img'); if(!im||im.style.display==='none') return;
+    var im=it.querySelector('img');if(!im||im.style.display==='none')return;
     document.getElementById('lb-img').src=im.src;
     document.getElementById('lightbox').classList.add('on');
   });
@@ -750,8 +860,8 @@ addEventListener('keydown',function(e){if(e.key==='Escape')closeLb()});
 
 /* ---------- cookie banner ---------- */
 var ck=document.getElementById('cookie');
-var seen=false; try{seen=localStorage.getItem('scp_cookie')}catch(e){}
-if(!seen) setTimeout(function(){ck.classList.add('show')},1100);
+var seen=false;try{seen=localStorage.getItem('scp_cookie')}catch(e){}
+if(!seen)setTimeout(function(){ck.classList.add('show')},1100);
 function cookieChoice(all){
   try{localStorage.setItem('scp_cookie',all?'all':'essential')}catch(e){}
   ck.classList.remove('show');
@@ -760,12 +870,72 @@ function cookieChoice(all){
 /* ---------- year ---------- */
 document.getElementById('yr').textContent=new Date().getFullYear();
 
-/* ---------- Instagram live feed (Behold.so JSON — no iframe, no cost) ---------- */
+/* ---------- spotlight slideshow ---------- */
+(function(){
+  var DURATION = 8000;
+  var slides   = document.querySelectorAll('.spotlight-slide');
+  var dots     = document.querySelectorAll('.spotlight-dots span');
+  var bar      = document.getElementById('spotlight-bar');
+  var current  = 0;
+  var timer    = null;
+
+  /* lazily inject src when a slide becomes active so autoplay
+     always fires fresh; strip src when leaving so the video stops */
+  function activateIframe(slide){
+    var iframe = slide.querySelector('iframe');
+    if(!iframe) return;
+    var src = iframe.getAttribute('data-src');
+    /* slide 0 already has src baked in; only swap data-src slides */
+    if(src && !iframe.getAttribute('src')){
+      iframe.setAttribute('src', src);
+    }
+  }
+  function deactivateIframe(slide){
+    var iframe = slide.querySelector('iframe');
+    if(!iframe) return;
+    /* only reset slides that were lazy-loaded (have data-src) */
+    if(iframe.getAttribute('data-src')){
+      iframe.removeAttribute('src');
+    }
+  }
+
+  function animateBar(){
+    if(bar){
+      bar.style.transition='none';
+      bar.style.width='0%';
+      bar.offsetWidth; /* force reflow */
+      bar.style.transition='width '+DURATION+'ms linear';
+      bar.style.width='100%';
+    }
+  }
+
+  window.goToSlide=function(idx){
+    deactivateIframe(slides[current]);
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('on');
+    current=idx;
+    slides[current].classList.add('active');
+    dots[current].classList.add('on');
+    activateIframe(slides[current]);
+    clearTimeout(timer);
+    animateBar();
+    timer=setTimeout(function(){advance();},DURATION);
+  };
+
+  function advance(){
+    goToSlide((current+1)%slides.length);
+  }
+
+  /* kick off — slide 0 src is already set, just start the timer */
+  animateBar();
+  timer=setTimeout(advance,DURATION);
+})();
+
+/* ---------- Instagram live feed ---------- */
 (function(){
   var FEED='https://feeds.behold.so/PiIe2YpnUh4rELRtiDFJ';
   var MAX=6;
 
-  /* relative timestamp — bilingual */
   function relTime(iso){
     var lang=document.documentElement.lang==='en'?'en':'pt';
     var diff=Math.floor((Date.now()-new Date(iso))/1000);
@@ -776,80 +946,50 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     var divs=[1,60,3600,86400,604800,2592000];
     var rows=tbl[lang];
     for(var i=0;i<rows.length;i++){
-      if(diff<rows[i][0]){
-        var n=Math.floor(diff/divs[i])||1;
-        return rows[i][1].replace('{n}',n);
-      }
+      if(diff<rows[i][0]){var n=Math.floor(diff/divs[i])||1;return rows[i][1].replace('{n}',n);}
     }
     return '';
   }
 
-  /* media type badge SVGs */
   function badge(type){
-    if(type==='VIDEO'){
-      return '<span title="Video"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>';
-    }
-    if(type==='CAROUSEL_ALBUM'){
-      return '<span title="Album"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="14" rx="2"/><path d="M6 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg></span>';
-    }
-    /* IMAGE — Instagram camera icon */
+    if(type==='VIDEO') return '<span title="Video"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>';
+    if(type==='CAROUSEL_ALBUM') return '<span title="Album"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="14" rx="2"/><path d="M6 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg></span>';
     return '<span title="Photo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg></span>';
   }
 
-  /* build one grid cell */
   function buildCell(post){
-    /* Use Behold's own CDN (sizes.medium) — Instagram's mediaUrl blocks hotlinking.
-       Fall back through the chain: sizes.medium → sizes.small → sizes.large → mediaUrl */
     var sz=post.sizes||{};
     var imgSrc=(sz.medium&&sz.medium.mediaUrl)||(sz.small&&sz.small.mediaUrl)||(sz.large&&sz.large.mediaUrl)||post.mediaUrl;
     var caption=(post.caption||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     var ts=relTime(post.timestamp);
     var a=document.createElement('a');
     a.className='ig';
-    a.href=post.permalink;
-    a.target='_blank';
-    a.rel='noopener';
-    a.setAttribute('aria-label', caption?caption.slice(0,80):'Instagram post');
-    a.innerHTML=
-      '<img src="'+imgSrc+'" alt="" loading="lazy" decoding="async">'+
-      '<div class="ig-badge">'+badge(post.mediaType)+'</div>'+
-      '<div class="ig-ov">'+
-        '<p class="ig-caption">'+
-          (caption?'<span>'+caption+'</span>':'')+
-          '<span class="ig-ts">'+ts+'</span>'+
-        '</p>'+
-      '</div>';
-    /* fade in once image loads */
-    a.style.opacity='0';
-    a.style.transition='opacity .4s ease';
+    a.href=post.permalink;a.target='_blank';a.rel='noopener';
+    a.setAttribute('aria-label',caption?caption.slice(0,80):'Instagram post');
+    a.innerHTML='<img src="'+imgSrc+'" alt="" loading="lazy" decoding="async"><div class="ig-badge">'+badge(post.mediaType)+'</div><div class="ig-ov"><p class="ig-caption">'+(caption?'<span>'+caption+'</span>':'')+'<span class="ig-ts">'+ts+'</span></p></div>';
+    a.style.opacity='0';a.style.transition='opacity .4s ease';
     var img=a.querySelector('img');
     img.addEventListener('load',function(){a.style.opacity='1';});
-    img.addEventListener('error',function(){a.style.opacity='1';});/* show even if img fails */
+    img.addEventListener('error',function(){a.style.opacity='1';});
     return a;
   }
 
   fetch(FEED)
-    .then(function(r){
-      if(!r.ok) throw new Error('feed error');
-      return r.json();
-    })
+    .then(function(r){if(!r.ok)throw new Error('feed error');return r.json();})
     .then(function(data){
       var posts=Array.isArray(data)?data:(data.posts||[]);
-      if(!posts.length) throw new Error('empty');
+      if(!posts.length)throw new Error('empty');
       var grid=document.getElementById('ig-grid');
       var cells=posts.slice(0,MAX).map(buildCell);
-      grid.innerHTML=''; /* clear skeletons */
+      grid.innerHTML='';
       cells.forEach(function(c){grid.appendChild(c);});
     })
     .catch(function(){
-      /* silent fallback — skeletons stay as branded gradient tiles,
-         all linking to the Instagram profile */
       var grid=document.getElementById('ig-grid');
       grid.querySelectorAll('.skel').forEach(function(el){
         el.classList.remove('skel');
         el.href='https://www.instagram.com/surfingclubeportugal/';
-        el.target='_blank';
-        el.rel='noopener';
+        el.target='_blank';el.rel='noopener';
         el.removeAttribute('aria-hidden');
         el.setAttribute('aria-label','Visita o nosso Instagram');
       });
