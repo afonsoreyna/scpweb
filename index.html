@@ -105,31 +105,14 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
   color:#fff;overflow:hidden;
   background:linear-gradient(160deg,#0a2433,#0d3c5c 55%,#00557d);
 }
-
-/* video fills the hero exactly like the old photo */
-.hero-video-wrap{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  overflow:hidden;
-  z-index:0;
-}
+.hero-video-wrap{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0;}
 .hero-video-wrap iframe{
-  /* YouTube embed — scaled up to cover the container with no letterbox */
-  position:absolute;
-  top:50%;left:50%;
+  position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
-  /* 16:9 aspect, but we need it bigger than the container in at least one axis */
-  width:calc(100% + 200px);
-  height:calc(100% + 200px);
-  min-width:calc(177.78vh);   /* 16/9 × 100vh */
-  min-height:calc(56.25vw);   /* 9/16 × 100vw */
-  pointer-events:none;
-  border:0;
-  opacity:.46;
-  filter:saturate(1.05);
+  width:calc(100% + 200px);height:calc(100% + 200px);
+  min-width:calc(177.78vh);min-height:calc(56.25vw);
+  pointer-events:none;border:0;opacity:.46;filter:saturate(1.05);
 }
-
-/* gradient overlay — same as before */
 .hero::after{
   content:"";position:absolute;inset:0;z-index:1;
   background:linear-gradient(180deg,rgba(10,36,51,.25) 0%,rgba(10,36,51,.15) 35%,rgba(10,36,51,.78) 100%);
@@ -166,9 +149,59 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .ph::after{content:"";position:absolute;inset:0;background-image:radial-gradient(120% 80% at 0% 0%,rgba(255,255,255,.16),transparent 50%);pointer-events:none}
 .ph .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:"Archivo";font-weight:600;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.78);background:rgba(10,36,51,.42);backdrop-filter:blur(4px);padding:5px 10px;border-radius:999px}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.story-media .ph.a{aspect-ratio:4/5}
-.story-media .ph.b{position:absolute;width:52%;aspect-ratio:1/1;right:-6%;bottom:-9%;border:6px solid var(--foam)}
-@media(max-width:560px){.story-media .ph.b{position:relative;right:0;bottom:0;width:64%;margin:-30px 0 0 auto}}
+.story-media .ph.a{aspect-ratio:4/3}
+.story-media .ph.b{position:absolute;width:34%;aspect-ratio:1/1;right:-4%;bottom:-7%;border:5px solid var(--foam)}
+
+/* heritage logo card — .ph.b variant */
+.ph-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#fff}
+.ph.ph-logo::after{display:none} /* suppress the dark radial highlight — logo has white bg */
+/* override the absolute-fill rule for regular .ph img */
+.ph.ph-logo img{position:relative;inset:auto;width:72%;height:auto;object-fit:contain;filter:none}
+.ph-logo .logo-era{position:relative;z-index:1;font-family:"Archivo";font-weight:700;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--slate);margin-top:2px}
+
+/* archive photo strip (horizontal, fixed height) */
+.story-archive{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;margin-top:22px;padding-bottom:6px}
+.story-archive::-webkit-scrollbar{height:5px}
+.story-archive::-webkit-scrollbar-thumb{background:rgba(0,168,232,.28);border-radius:5px}
+.arc-item{
+  flex:0 0 calc(33.333% - 10px);min-width:240px;
+  scroll-snap-align:start;position:relative;
+  border-radius:var(--r);overflow:hidden;
+  aspect-ratio:4/3;background:var(--ink);
+}
+.arc-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(.08) contrast(1.06);transition:transform .55s cubic-bezier(.25,.46,.45,.94)}
+.arc-item:hover img{transform:scale(1.05)}
+.arc-yr{
+  position:absolute;top:12px;left:14px;z-index:2;
+  font-family:"Archivo";font-weight:900;font-size:1.05rem;
+  color:var(--sun);text-shadow:0 2px 10px rgba(0,0,0,.5);
+  letter-spacing:.01em;
+}
+.arc-cap{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:9px 14px 13px;
+  background:linear-gradient(0deg,rgba(10,36,51,.85) 0%,rgba(10,36,51,.4) 60%,transparent 100%);
+}
+.arc-cap p{margin:0;font-size:.78rem;font-style:italic;line-height:1.36;color:rgba(255,255,255,.9)}
+.arc-cred{display:block;margin-top:5px;font-family:"Archivo";font-weight:600;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.46);font-style:normal}
+
+/* president's interview block */
+.story-interview{
+  display:grid;grid-template-columns:1fr 1.55fr;
+  gap:clamp(22px,3.5vw,44px);align-items:center;
+  background:var(--ink);border-radius:var(--r);
+  padding:clamp(24px,3vw,38px);margin-top:22px;
+}
+.int-eyebrow{
+  font-family:"Archivo";font-weight:700;font-size:.68rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--surf-bright);
+  display:inline-flex;align-items:center;gap:.5rem;
+}
+.int-eyebrow::before{content:"";width:22px;height:2px;background:var(--sun);display:inline-block}
+.story-interview h3{font-size:clamp(1.1rem,1.9vw,1.55rem);color:#fff;margin:10px 0 0;max-width:24ch}
+.story-interview .int-sub{color:rgba(255,255,255,.68);font-size:.93rem;margin:.9rem 0 0;max-width:36ch;line-height:1.55}
+.int-frame{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/9;box-shadow:0 24px 60px -16px rgba(0,0,0,.7)}
+.int-frame iframe{width:100%;height:100%;border:0}
 
 /* ---------- conquistas ---------- */
 .feats{background:var(--ink);color:#fff;overflow:hidden}
@@ -247,121 +280,25 @@ header.nav.scrolled{border-bottom:1px solid var(--line);box-shadow:0 6px 30px -2
 .ig.skel{pointer-events:none}
 .ig.skel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.08) 50%,rgba(255,255,255,0) 100%);background-size:200% 100%;animation:shimmer 1.6s infinite linear}
 
-/* ---------- CONTACT — new layout ---------- */
+/* ---------- CONTACT ---------- */
 .contact{background:var(--ink-2);color:#fff}
 .contact h2{font-size:clamp(2rem,3.6vw,3.1rem);margin-top:14px;color:#fff}
 .contact .eyebrow{color:var(--surf-bright)}
-
-/* outer 2-col grid: left=info, right=spotlight+map stacked */
-.contact-grid{
-  display:grid;
-  grid-template-columns:1fr 1.05fr;
-  gap:clamp(30px,5vw,60px);
-  align-items:start;
-}
-
-/* right column stacks spotlight on top, map below */
-.contact-right{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-}
-
-/* ---- spotlight video slideshow ---- */
-.spotlight{
-  position:relative;
-  border-radius:var(--r);
-  overflow:hidden;
-  background:#0a2433;
-  aspect-ratio:16/9;
-  box-shadow:var(--shadow);
-}
-
-/* each iframe slide */
-.spotlight-slide{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  transition:opacity .8s ease;
-  pointer-events:none;
-}
-.spotlight-slide.active{
-  opacity:1;
-  pointer-events:auto;
-}
-.spotlight-slide iframe{
-  width:100%;height:100%;border:0;
-}
-/* transparent overlay blocks YouTube title/share/channel UI
-   while still allowing the video to play through underneath */
-.spotlight-slide::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:2;
-  background:transparent;
-}
-
-/* progress dots */
-.spotlight-dots{
-  position:absolute;
-  bottom:12px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:10;
-  display:flex;
-  gap:8px;
-}
-.spotlight-dots span{
-  width:8px;height:8px;
-  border-radius:50%;
-  background:rgba(255,255,255,.4);
-  cursor:pointer;
-  transition:background .3s, transform .3s;
-}
-.spotlight-dots span.on{
-  background:#fff;
-  transform:scale(1.3);
-}
-
-/* progress bar at bottom of spotlight */
-.spotlight-bar{
-  position:absolute;
-  bottom:0;left:0;
-  height:3px;
-  background:var(--sun);
-  width:0%;
-  transition:width linear;
-  z-index:10;
-}
-
-/* label badge top-left */
-.spotlight-label{
-  position:absolute;
-  top:12px;left:12px;
-  z-index:10;
-  font-family:"Archivo";font-weight:700;font-size:.66rem;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(255,255,255,.9);
-  background:rgba(10,36,51,.52);
-  backdrop-filter:blur(6px);
-  padding:5px 10px;border-radius:999px;
-}
-
-/* ---- map ---- */
-.map-wrap{
-  position:relative;
-  border-radius:var(--r);
-  overflow:hidden;
-  height:320px;
-  background:linear-gradient(150deg,#0d3c5c,#00557d);
-  box-shadow:var(--shadow);
-  flex-shrink:0;
-}
+.contact-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(30px,5vw,60px);align-items:start;}
+.contact-right{display:flex;flex-direction:column;gap:16px;}
+.spotlight{position:relative;border-radius:var(--r);overflow:hidden;background:#0a2433;aspect-ratio:16/9;box-shadow:var(--shadow);}
+.spotlight-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;pointer-events:none;}
+.spotlight-slide.active{opacity:1;pointer-events:auto;}
+.spotlight-slide iframe{width:100%;height:100%;border:0;}
+.spotlight-slide::after{content:"";position:absolute;inset:0;z-index:2;background:transparent;}
+.spotlight-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:8px;}
+.spotlight-dots span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:background .3s, transform .3s;}
+.spotlight-dots span.on{background:#fff;transform:scale(1.3);}
+.spotlight-bar{position:absolute;bottom:0;left:0;height:3px;background:var(--sun);width:0%;transition:width linear;z-index:10;}
+.spotlight-label{position:absolute;top:12px;left:12px;z-index:10;font-family:"Archivo";font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.9);background:rgba(10,36,51,.52);backdrop-filter:blur(6px);padding:5px 10px;border-radius:999px;}
+.map-wrap{position:relative;border-radius:var(--r);overflow:hidden;height:320px;background:linear-gradient(150deg,#0d3c5c,#00557d);box-shadow:var(--shadow);flex-shrink:0;}
 .map-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.15)}
 .map-open{position:absolute;left:14px;bottom:14px;z-index:3}
-
-/* contact info */
 .cinfo{margin-top:26px;display:flex;flex-direction:column;gap:4px}
 .cline{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12)}
 .cline .ic{flex:0 0 22px;color:var(--sun);margin-top:2px}
@@ -427,12 +364,19 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
   .grid-g{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
   .foot{grid-template-columns:1fr 1fr}
   .map-wrap{height:260px}
+  /* história additions */
+  .arc-item{flex:0 0 calc(50% - 7px)}
+  .story-interview{grid-template-columns:1fr}
+  .story-interview .int-sub{max-width:none}
 }
 @media(max-width:560px){
   .cards{grid-template-columns:1fr}
   .ig-grid{grid-template-columns:repeat(2,1fr)}
   .foot{grid-template-columns:1fr}
   .hero .est{display:none}
+  /* história additions */
+  .arc-item{flex:0 0 82%}
+  .story-media .ph.b{position:relative;right:0;bottom:0;width:64%;margin:-30px 0 0 auto}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;scroll-behavior:auto!important}
@@ -603,20 +547,90 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 
 <!-- =================== HISTÓRIA =================== -->
 <section class="story sec-pad" id="historia">
-  <div class="wrap story-grid">
-    <div class="reveal">
-      <span class="eyebrow" data-pt="A nossa história" data-en="Our story">A nossa história</span>
-      <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
-      <h2 data-pt="Onde o surf português começou" data-en="Where Portuguese surf began">Onde o surf português começou</h2>
-      <p data-pt="Em 1978, na praia de São Pedro do Estoril, um grupo de amigos apaixonados pelo mar fundou aquele que se tornaria o primeiro e mais antigo clube de surf do país. Desde então, o clube nunca saiu da água." data-en="In 1978, on the beach of São Pedro do Estoril, a group of friends in love with the sea founded what would become the country's first and oldest surf club. It has never left the water since.">Em 1978, na praia de São Pedro do Estoril, um grupo de amigos apaixonados pelo mar fundou aquele que se tornaria o primeiro e mais antigo clube de surf do país. Desde então, o clube nunca saiu da água.</p>
-      <p data-pt="Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf." data-en="Generations grew up here — from their first boards to championship heats. More than a school, we're a community bound to the Estoril coast, to togetherness, and to the genuine spirit of surf.">Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf.</p>
-      <p class="pullquote" data-pt="Aqui, o surf passa de geração em geração." data-en="Here, surfing is passed from generation to generation.">Aqui, o surf passa de geração em geração.</p>
-    </div>
-    <div class="story-media reveal">
-      <div class="ph a"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?auto=format&fit=crop&w=900&q=70"><span class="tag" data-pt="Foto do clube" data-en="Club photo">Foto do clube</span></div>
-      <div class="ph b"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=700&q=70"><span class="tag" data-pt="Arquivo" data-en="Archive">Arquivo</span></div>
-    </div>
-  </div>
+  <div class="wrap">
+
+    <!-- Main 2-col grid: text left, media right -->
+    <div class="story-grid">
+
+      <!-- LEFT: text -->
+      <div class="reveal">
+        <span class="eyebrow" data-pt="A nossa história" data-en="Our story">A nossa história</span>
+        <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
+        <h2 data-pt="Onde o surf português começou" data-en="Where Portuguese surf began">Onde o surf português começou</h2>
+        <p data-pt="A história começa antes de 1978. Na década de 60, Pedro Martins de Lima já era um local do Bico de São Pedro do Estoril. Em 1970, a Pedra do Sal era paragem obrigatória dos surfistas portugueses e estrangeiros. Desta comunidade pioneira nasceu, em 1978, o primeiro e mais antigo clube de surf de Portugal." data-en="The story starts before 1978. In the 1960s, Pedro Martins de Lima was already a fixture at Bico de São Pedro do Estoril. By 1970, Pedra do Sal was a landmark stop for Portuguese and international surfers alike. From this pioneering community, in 1978, Portugal's first and oldest surf club was born.">A história começa antes de 1978. Na década de 60, Pedro Martins de Lima já era um local do Bico de São Pedro do Estoril. Em 1970, a Pedra do Sal era paragem obrigatória dos surfistas portugueses e estrangeiros. Desta comunidade pioneira nasceu, em 1978, o primeiro e mais antigo clube de surf de Portugal.</p>
+        <p data-pt="Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf." data-en="Generations grew up here — from first boards to championship heats. More than a school, we're a community bound to the Estoril coast, to togetherness, and to the genuine spirit of surf.">Gerações cresceram aqui — das primeiras pranchas às etapas de campeonato. Mais do que uma escola, somos uma comunidade ligada à costa do Estoril, ao convívio e ao espírito genuíno do surf.</p>
+        <p class="pullquote" data-pt="Aqui, o surf passa de geração em geração." data-en="Here, surfing is passed from generation to generation.">Aqui, o surf passa de geração em geração.</p>
+      </div>
+
+      <!-- RIGHT: large historical photo + heritage logo card overlay -->
+      <div class="story-media reveal">
+        <!-- ph.a — 1970 surf photo, most dramatic at large size -->
+        <div class="ph a">
+          <img class="ph-img" src="resources/Photos/sunset.png" alt="São Pedro do Estoril, 1970 · Foto: Miguel Rodrigues">
+          <span class="tag">São Pedro do Estoril · 1970</span>
+        </div>
+        <!-- ph.b — original/founding club logo on ink background
+             UPDATE PATH below if your file is named differently -->
+        <div class="ph b ph-logo">
+          <img src="resources/Photos/firstlogo.jpg" alt="Logótipo original · Surfing Clube de Portugal · 1978">
+          <span class="logo-era">Est. 1978</span>
+        </div>
+      </div>
+    </div><!-- /.story-grid -->
+
+    <!-- Archive photo strip: three photos, chronological left→right -->
+    <div class="story-archive reveal">
+
+      <!-- 1950s — oldest, from municipal archive -->
+      <div class="arc-item">
+        <img src="resources/Photos/story3.png" alt="Praia de São Pedro do Estoril, anos 50" loading="lazy">
+        <span class="arc-yr">c. 1950</span>
+        <div class="arc-cap">
+          <p data-pt="A praia de São Pedro nos anos 50 — muito antes do surf, mas já palco de uma ligação duradoura com o oceano." data-en="São Pedro beach in the 1950s — long before surfing, but already a place of enduring connection with the ocean.">A praia de São Pedro nos anos 50 — muito antes do surf, mas já palco de uma ligação duradoura com o oceano.</p>
+          <span class="arc-cred" data-pt="Arquivo Municipal" data-en="Municipal Archive">Arquivo Municipal</span>
+        </div>
+      </div>
+
+      <!-- 1960s — Pedro Martins de Lima -->
+      <div class="arc-item">
+        <img src="resources/Photos/story1.png" alt="Pedro Martins de Lima, Bico de S. Pedro do Estoril, anos 60" loading="lazy">
+        <span class="arc-yr">c. 1960</span>
+        <div class="arc-cap">
+          <p data-pt="Pedro Martins de Lima no Bico de S. Pedro do Estoril — já então um local, um dos pioneiros que abriu o caminho para o clube." data-en="Pedro Martins de Lima at Bico de S. Pedro do Estoril — already a regular, one of the pioneers who paved the way for the club.">Pedro Martins de Lima no Bico de S. Pedro do Estoril — já então um local, um dos pioneiros que abriu o caminho para o clube.</p>
+        </div>
+      </div>
+
+      <!-- 1970 — Pedra do Sal, Miguel Rodrigues -->
+      <div class="arc-item">
+        <img src="resources/Photos/story2.png" alt="Pedra do Sal, São Pedro do Estoril, 1970" loading="lazy">
+        <span class="arc-yr">1970</span>
+        <div class="arc-cap">
+          <p data-pt="A Pedra do Sal em 1970 — já paragem obrigatória dos surfistas portugueses e estrangeiros. A comunidade que fundaria o clube tomava forma." data-en="Pedra do Sal in 1970 — already a landmark for Portuguese and international surfers. The community that would found the club was taking shape.">A Pedra do Sal em 1970 — já paragem obrigatória dos surfistas portugueses e estrangeiros. A comunidade que fundaria o clube tomava forma.</p>
+          <span class="arc-cred">Foto: Miguel Rodrigues</span>
+        </div>
+      </div>
+
+    </div><!-- /.story-archive -->
+
+    <!-- President's interview — with sound, user-initiated -->
+    <div class="story-interview reveal">
+      <div>
+        <span class="int-eyebrow" data-pt="Em primeira pessoa" data-en="In his own words">Em primeira pessoa</span>
+        <h3 data-pt="O presidente conta a história do clube" data-en="The president tells the club's story">O presidente conta a história do clube</h3>
+        <p class="int-sub" data-pt="Em entrevista, o presidente do Surfing Clube de Portugal recorda as origens, os primeiros anos na praia de São Pedro e o espírito que une a comunidade desde 1978." data-en="In this interview, the club's president recalls the origins, the early years at São Pedro beach, and the spirit that has united the community since 1978.">Em entrevista, o presidente do Surfing Clube de Portugal recorda as origens, os primeiros anos na praia de São Pedro e o espírito que une a comunidade desde 1978.</p>
+      </div>
+      <div class="int-frame">
+        <!-- Sound on, controls visible, no autoplay — this is a spoken interview -->
+        <iframe
+          src="https://www.youtube.com/embed/LmEbphqKTk0?controls=1&rel=0&modestbranding=1&iv_load_policy=3"
+          title="Entrevista com o presidente — Surfing Clube de Portugal"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div><!-- /.story-interview -->
+
+  </div><!-- /.wrap -->
 </section>
 
 <!-- =================== CONQUISTAS =================== -->
@@ -663,8 +677,6 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
 <!-- =================== CONTACTO =================== -->
 <section class="contact sec-pad" id="contacto">
   <div class="wrap contact-grid">
-
-    <!-- LEFT — contact info -->
     <div class="reveal">
       <span class="eyebrow" data-pt="Contacto" data-en="Contact">Contacto</span>
       <svg class="wave-rule" viewBox="0 0 118 14"><path class="c" d="M2 9 C 16 1, 30 1, 44 8 S 72 15, 86 8"/><path class="o" d="M30 12 C 44 5, 58 5, 72 11 S 100 17, 116 10"/></svg>
@@ -681,64 +693,26 @@ footer{background:#061a25;color:rgba(255,255,255,.7)}
         <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.5)" href="https://www.google.com/maps/dir/?api=1&destination=Praia+de+S%C3%A3o+Pedro+do+Estoril" target="_blank" rel="noopener" data-pt="Como chegar" data-en="Directions">Como chegar</a>
       </div>
     </div>
-
-    <!-- RIGHT — spotlight slideshow on top, map below -->
     <div class="contact-right reveal">
-
-      <!-- Spotlight video slideshow -->
       <div class="spotlight" id="spotlight" aria-label="Spotlight videos">
-
         <div class="spotlight-label" data-pt="Em destaque" data-en="Spotlight">Em destaque</div>
-
-        <!-- Slide 1 -->
         <div class="spotlight-slide active" id="slide-0">
-          <iframe
-            src="https://www.youtube.com/embed/FzESpRp-suM?autoplay=1&mute=1&loop=1&playlist=FzESpRp-suM&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3"
-            title="Spotlight video 1"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/FzESpRp-suM?autoplay=1&mute=1&loop=1&playlist=FzESpRp-suM&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3" title="Spotlight video 1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
-
-        <!-- Slide 2 -->
         <div class="spotlight-slide" id="slide-1">
-          <iframe
-            data-src="https://www.youtube.com/embed/6m1jISE7iUQ?autoplay=1&mute=1&loop=1&playlist=6m1jISE7iUQ&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3"
-            title="Spotlight video 2"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-          </iframe>
+          <iframe data-src="https://www.youtube.com/embed/6m1jISE7iUQ?autoplay=1&mute=1&loop=1&playlist=6m1jISE7iUQ&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3" title="Spotlight video 2" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
-
-        <!-- Navigation dots -->
         <div class="spotlight-dots" role="tablist" aria-label="Spotlight slides">
           <span class="on" role="tab" aria-label="Slide 1" onclick="goToSlide(0)"></span>
           <span role="tab" aria-label="Slide 2" onclick="goToSlide(1)"></span>
         </div>
-
-        <!-- Progress bar -->
         <div class="spotlight-bar" id="spotlight-bar"></div>
       </div>
-
-      <!-- Map -->
       <div class="map-wrap">
-        <iframe
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Mapa - Surfing Clube de Portugal"
-          src="https://www.google.com/maps?q=Surfing+Clube+de+Portugal&z=15&output=embed">
-        </iframe>
-        <a class="btn btn-white map-open"
-          href="https://www.google.com/maps?q=Surfing+Clube+de+Portugal"
-          target="_blank"
-          rel="noopener"
-          data-pt="Abrir no Maps"
-          data-en="Open in Maps">
-          Abrir no Maps
-        </a>
+        <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa - Surfing Clube de Portugal" src="https://www.google.com/maps?q=Surfing+Clube+de+Portugal&z=15&output=embed"></iframe>
+        <a class="btn btn-white map-open" href="https://www.google.com/maps?q=Surfing+Clube+de+Portugal" target="_blank" rel="noopener" data-pt="Abrir no Maps" data-en="Open in Maps">Abrir no Maps</a>
       </div>
-
-    </div><!-- /.contact-right -->
+    </div>
   </div>
 </section>
 
