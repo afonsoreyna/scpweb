@@ -5,6 +5,24 @@
 ## What this is
 A simple, compelling one-page site for **Surfing Clube de Portugal**, a non-profit surf club in **São Pedro do Estoril (Cascais), Lisbon**. Goal: tell the club's story, show achievements + classes + contact, and use the club's **Instagram as the live "news" feed** so the site needs almost no manual updates. Client is not tech-savvy; low-maintenance is a hard requirement.
 
+**Status as of 18 June 2026:** Domain live and pointing to GitHub Pages. Site accessible at `https://surfingclubeportugal.com`.
+
+---
+
+## COMPLETED — DNS & Hosting (18 June 2026)
+
+**What was done:**
+- Domain `surfingclubeportugal.com` migrated from WebHS server (`185.90.59.106`) to GitHub Pages hosting
+- Root A records updated: four GitHub IPs (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`)
+- www CNAME changed to `afonsoreyna.github.io.`
+- `CNAME` file added to repo root containing `surfingclubeportugal.com`
+- Custom domain `surfingclubeportugal.com` enabled in GitHub Pages settings (branch: `main`, root folder)
+- Email routing (MX, SPF, DKIM) preserved — club email unaffected
+- DNS has propagated globally (confirmed via dnschecker.org)
+
+
+---
+
 ## Brand tokens (do not drift from these)
 - Cyan (primary): `#00A8E8` — sampled from the logo
 - Orange (accent/CTA): `#F7941E`
@@ -23,7 +41,7 @@ Each section has a comment banner like `<!-- =================== HERO ==========
 2. Hero — full-bleed video background, headline, "EST. 1978", CTAs
 3. Stats strip (47 anos / 1.º clube / 20+ ESF / 7 modalidades)
 4. Aulas (4 class cards) → `#aulas`
-5. Instagram (live feed from Behold.so JSON) → `#instagram` ✅ **COMPLETE**
+5. Instagram (live feed from Behold.so JSON) → `#instagram` ✅ **LIVE**
 6. História → `#historia`
 7. Conquistas (horizontal timeline) → `#conquistas`
 8. Galeria (lightbox grid) → `#galeria`
@@ -48,7 +66,7 @@ Each section has a comment banner like `<!-- =================== HERO ==========
 - Founded **1978**; first & oldest surf club in Portugal; Praia de São Pedro do Estoril
 - Modalities: **Surf, Longboard, Skimboard, Bodyboard, Stand-up Paddle, Bodysurf, Águas Livres** (7 total)
 - **Estoril Surf Festival** — 20th edition in 2024, runs through November
-- Phone **+351 214 678 002** · Email **info@surfingclubeportugal.com**
+- Phone **+351 919 661 659** · Email **surfingclubeportugal@gmail.com**
 - Instagram **@surfingclubeportugal** (Business account, connected to Behold.so)
 - Facebook **/surfingclubeportugal**
 - Address: Centro de Surf, Avenida Marginal, Praia de São Pedro do Estoril, 2765-603 Estoril, Cascais
@@ -56,6 +74,7 @@ Each section has a comment banner like `<!-- =================== HERO ==========
 ## File structure
 ```
 index.html              ← the site (inline CSS + JS, logo referenced by path)
+CNAME                   ← GitHub Pages custom domain (added 18 June 2026)
 resources/
   logowide.png          ← wide colour logo (nav, height: 60px)
   logo-white.png        ← white logo (footer/dark sections)
@@ -118,24 +137,56 @@ Autoplay of iframes is more aggressively blocked on iOS Safari regardless of par
 
 ---
 
-## TODO / placeholders to replace
+## TODO — Immediate Priority (Launch Phase)
 
 ### ✅ Completed
-- [x] **Live Instagram feed** — Behold.so JSON integration complete
-- [x] **Hero background video** — YouTube unlisted, ID: `JUig1YpxuGk`
-- [x] **Spotlight slideshow** — 2 videos, IDs: `FzESpRp-suM` and `6m1jISE7iUQ`
-- [x] **Section order** — decided with client (see page structure above)
-- [x] **Section colour contrast** — alternating dark/light rhythm established
-- [x] **YouTube UI chrome** — blocked via CSS transparent overlay + lazy src swap
+- [x] Live Instagram feed — Behold.so JSON integration complete
+- [x] Hero background video — YouTube unlisted, ID: `JUig1YpxuGk`
+- [x] Spotlight slideshow — 2 videos, IDs: `FzESpRp-suM` and `6m1jISE7iUQ`
+- [x] Section order — decided with client
+- [x] Section colour contrast — alternating dark/light rhythm established
+- [x] YouTube UI chrome — blocked via CSS transparent overlay + lazy src swap
+- [x] **Domain DNS & hosting** — migrated to GitHub Pages, live at surfingclubeportugal.com
 
-### Still needed
-- [ ] **Photos** — all Unsplash placeholders (hero, história, galeria sections) to be swapped for real club photos (`img.ph-img` slots)
-- [ ] **WhatsApp number** — float currently points to `wa.me/351000000000`; update to real club number
-- [ ] **Class schedules / prices / ages** — currently sensible placeholders; confirm with club
+### Still needed — Content & Launch
+- [ ] **Real club photos** — replace all Unsplash placeholders (`img.ph-img` slots)
+  - Hero background (or use current video)
+  - História section (main grid + archive strip)
+  - Galeria section (7-item grid)
+  - Estimated impact: **High** — visual authenticity critical for trust
+- [ ] **Class details confirmation** — schedules, prices, age ranges (currently sensible placeholders)
+  - Contact club to verify current offerings
 - [ ] **Real championship results** — fill the timeline ("O teu título aqui" card) with actual club achievements
-- [ ] **Privacy/RGPD page** — cookie banner links to it
-- [ ] **Hosting decision** — domain registered but hosting platform not yet decided (currently GitHub Pages)
-- [ ] **GDPR compliance** — cookie banner exists but no privacy policy page yet
+  - Dates, event names, athlete/team names
+- [ ] **WhatsApp button** — update from placeholder `wa.me/351000000000` to real club number (currently: `+351 919 661 659`)
+
+### Still needed — Legal & SEO
+- [ ] **Privacy/GDPR policy page** — create standalone page (cookie banner links to it)
+  - Must cover: data collection, cookie usage, contact info, data subject rights
+  - Consider RGPD compliance — may need legal review
+  - Estimate: 500–800 words
+- [ ] **Google Search Console verification** — register domain and submit sitemap
+  - Separate from Analytics; needed for search visibility
+  - Add `sitemap.xml` to repo
+- [ ] **Google Analytics 4 setup** — tracking code + consent flow
+  - Integrate with cookie banner (only load GA if user accepts analytics)
+  - Track: page views, scroll depth, CTA clicks, outbound links
+- [ ] **Structured data (Schema.org)** — local business markup
+  - Helps Google understand: location, phone, hours, modalities
+  - Add JSON-LD to `<head>` or inline in HTML
+
+### Still needed — Operations
+- [ ] **Domain renewal reminder** — set calendar alert for **17 October 2026** (domain expires)
+  - Reseller: `domains@domainprotect.pt` / `+351 308 802 611`
+- [ ] **Email setup verification** — confirm club mailboxes are live
+  - WebHS email hosting still active; verify it's being used or plan migration
+- [ ] **Enforce HTTPS** — tick the box in GitHub Pages settings (pending DNS check clear)
+
+### Not urgent — Enhancement
+- [ ] Open Graph tags (improves social sharing previews)
+- [ ] Sitemap.xml generation and submission
+- [ ] Performance audit (Lighthouse, Core Web Vitals)
+- [ ] Mobile UX refinement (currently responsive, but test real devices)
 
 ---
 
@@ -146,3 +197,4 @@ Autoplay of iframes is more aggressively blocked on iOS Safari regardless of par
 - The colour rhythm table above is intentional — don't flatten sections to the same background without checking the sequence
 - Instagram feed is auto-updating — no edits needed unless Behold configuration changes or feed ID expires
 - Nav links, mobile drawer links, and footer nav links must all be kept in sync when reordering sections
+- before coding or doing a heavy task allways ask for green light
